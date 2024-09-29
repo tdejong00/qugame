@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1ngqaf6fb2ak"]
+[gd_scene load_steps=8 format=3 uid="uid://b1ngqaf6fb2ak"]
 
+[ext_resource type="PackedScene" uid="uid://bsi2sm86hkhor" path="res://scenes/objects/qubit/qubit.tscn" id="2_mgg4g"]
 [ext_resource type="PackedScene" uid="uid://ckk03qsadcwlw" path="res://scenes/entities/player/player.tscn" id="2_s1drc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xivj7"]
@@ -28,8 +29,13 @@ points = PackedVector3Array(5.07738, 0.079334, 5.07738, -5.07738, -0.079334, -5.
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cgu1e")
 
+[node name="Player" parent="." instance=ExtResource("2_s1drc")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 3)
+
+[node name="Qubit" parent="." instance=ExtResource("2_mgg4g")]
+
 [node name="Floor" type="StaticBody3D" parent="."]
-collision_layer = 2
+collision_layer = 4
 collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
@@ -37,6 +43,3 @@ mesh = SubResource("PlaneMesh_7jt82")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("ConvexPolygonShape3D_0hsqb")
-
-[node name="Player" parent="." instance=ExtResource("2_s1drc")]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 3)

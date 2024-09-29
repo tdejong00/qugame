@@ -22,6 +22,9 @@ class_name Player extends CharacterBody3D
 ## much the camera moves up and down while the player is walking.
 @export var bob_amplitude: float = 0.04
 
+## Current interactable object.
+var interactable: Interactable
+
 var _bob_t: float = 0.0
 
 @onready var player: CharacterBody3D = $"."
@@ -29,12 +32,12 @@ var _bob_t: float = 0.0
 @onready var camera: Camera3D = $Marker3D/Camera3D
 
 
-func _ready():
+func _ready() -> void:
     # Capture mouse
     Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
-func _physics_process(delta: float):
+func _physics_process(delta: float) -> void:
     # Handle _gravity
     if not is_on_floor():
         velocity.y -= gravity * delta
@@ -47,6 +50,10 @@ func _physics_process(delta: float):
     var speed = walk_velocity
     if Input.is_action_pressed("sprint"):
         speed = sprint_velocity
+
+    # Handle interactions
+    if Input.is_action_just_pressed("interact") and interactable != null:
+        interactable.interact()
 
     # Quit game
     if Input.is_action_just_pressed("quit"):
@@ -74,21 +81,21 @@ func _physics_process(delta: float):
     move_and_slide()
 
 
-func _input(event):
+func _input(event) -> void:
     # Handle camera movement
     if event is InputEventMouseMotion:
         rotate_camera(event)
 
 
 ## Rotates the camera using the relative position of the mouse.
-func rotate_camera(event: InputEventMouseMotion):
+func rotate_camera(event: InputEventMouseMotion) -> void:
     player.rotation.y -= event.relative.x * 0.001 * camera_sensitivity
     camera.rotation.x -= event.relative.y * 0.001 * camera_sensitivity
     camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 
 ## Applies a bobbing effect to the camera to simulate head movement while walking.
-func bob_camera(t: float):
+func bob_camera(t: float) -> void:
     var v = Vector3.ZERO
     v.y = sin(t * bob_frequency) * bob_amplitude
     v.x = cos(t * bob_frequency / 2) * bob_amplitude
