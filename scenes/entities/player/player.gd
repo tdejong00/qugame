@@ -30,14 +30,39 @@ var _bob_t: float = 0.0
 @onready var player: CharacterBody3D = $"."
 @onready var head: Marker3D = $Marker3D
 @onready var camera: Camera3D = $Marker3D/Camera3D
+@onready var ray_cast: RayCast3D = $Marker3D/Camera3D/RayCast3D
+@onready var ui: UI = $UserInterface
 
 
 func _ready() -> void:
+    # Stop ray cast from hitting player
+    ray_cast.add_exception(self)
     # Capture mouse
     Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _physics_process(delta: float) -> void:
+    # Determine if looking at interactable object
+    if ray_cast.is_colliding():
+        var collider = ray_cast.get_collider().get_parent()
+        if collider is Interactable:
+            interactable = collider
+            ui.interaction_label.text = collider.interaction_text
+        else:
+            interactable = null
+            ui.interaction_label.text = ""
+    else:
+        interactable = null
+        ui.interaction_label.text = ""
+    
+    # Handle interactions
+    if Input.is_action_just_pressed("interact") and interactable != null:
+        interactable.interact()
+        
+    # Quit game
+    if Input.is_action_just_pressed("quit"):
+        get_tree().quit()
+    
     # Handle _gravity
     if not is_on_floor():
         velocity.y -= gravity * delta
@@ -50,14 +75,6 @@ func _physics_process(delta: float) -> void:
     var speed = walk_velocity
     if Input.is_action_pressed("sprint"):
         speed = sprint_velocity
-
-    # Handle interactions
-    if Input.is_action_just_pressed("interact") and interactable != null:
-        interactable.interact()
-
-    # Quit game
-    if Input.is_action_just_pressed("quit"):
-        get_tree().quit()
 
     # Get input direction and handle movement/deceleration.
     var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")

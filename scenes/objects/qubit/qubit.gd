@@ -17,24 +17,45 @@ const SCENE: PackedScene = preload("res://scenes/objects/qubit/qubit.tscn")
 const ROTATION_SPEED: float = 5.0
 
 ## The amplitude for the |0⟩ state.
-var _alpha: Vector2
+var _alpha: Vector2 = Vector2.RIGHT
 ## The amplitude for the |1⟩ state.
-var _beta: Vector2
+var _beta: Vector2 = Vector2.ZERO
 ## The polar angle that determines the qubit's position on the Bloch sphere.
-var _theta: float
+var _theta: float = 0.0
 ## The azimuthal angle that represents the relative phase between α and β.
-var _phi: float
+var _phi: float = 0.0
 
 @onready var bloch_sphere: Node3D = $BlochSphere
 @onready var bloch_sphere_arrow: Node3D = $BlochSphere/Arrow
-@onready var area: Area3D = $Base/Area3D
 
-## Returns a string representation of the qubit state in Dirac notation.
-func _to_string() -> String:
-    return "|Ψ⟩ = " + str(_alpha) + "|0⟩ " + str(_beta) + "|1⟩"
+
+## Creates qubit instance and initializes it with the specified amplitudes.
+static func create(alpha: Vector2, beta: Vector2) -> Qubit:
+    var instance: Qubit = SCENE.instantiate()
+    instance._alpha = alpha
+    instance._beta = beta
+    return instance
 
 
 func _ready() -> void:
+    # Ensure that |α|² + |β|² = 1.
+    var alpha_norm = sqrt(_alpha.x ** 2 + _alpha.y ** 2)
+    var beta_norm = sqrt(_beta.x ** 2 + _beta.y ** 2)
+    assert(alpha_norm + beta_norm == 1)
+    
+    # Set theta angle
+    _theta = 2 * acos(alpha_norm)
+    
+    # Set phi angle
+    var alpha_phase = atan2(_alpha.y, _alpha.x)
+    var beta_phase = atan2(_beta.y, _beta.x)
+    _phi = beta_phase - alpha_phase
+    
+    # Ensure phi is within range [0, 2π]
+    if _phi < 0:
+        _phi += PI * 2
+        
+    # Disable visibility of bloch sphere by default
     bloch_sphere.visible = false
 
 
@@ -46,46 +67,11 @@ func _physics_process(delta: float) -> void:
         bloch_sphere_arrow.rotation.y = lerp_angle(bloch_sphere_arrow.rotation.y, _phi, ROTATION_SPEED * delta)
 
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
-    if body is Player:
-        body.interactable = self
-    
-
-func _on_area_3d_body_exited(body: Node3D) -> void:
-    if body is Player:
-        body.interactable = null
+## Returns a string representation of the qubit state in Dirac notation.
+func _to_string() -> String:
+    return "|Ψ⟩ = " + str(_alpha) + "|0⟩ " + str(_beta) + "|1⟩"
 
 
-## TODO
+## Toggles visibility of bloch sphere when interacted with.
 func interact() -> void:
     bloch_sphere.visible = !bloch_sphere.visible
-
-
-## Creates an instance of the scene and initializes it with the specified amplitudes.
-static func create(alpha: Vector2, beta: Vector2) -> Qubit:
-    var instance: Qubit = SCENE.instantiate()
-    instance._alpha = alpha
-    instance._beta = beta
-    instance.normalize()
-    
-    # Set theta angle
-    var alpha_norm = sqrt(instance.alpha.x ** 2 + instance.alpha.y ** 2)
-    instance.theta = 2 * acos(alpha_norm)
-    
-    # Set phi angle
-    var alpha_phase = atan2(instance.alpha.y, instance.alpha.x)
-    var beta_phase = atan2(instance.beta.y, instance.beta.x)
-    instance.phi = beta_phase - alpha_phase
-    
-    # Ensure phi is within range [0, 2π]
-    if instance.phi < 0:
-        instance.phi += PI * 2
-    
-    return instance
-
-
-## Normalizes the qubit state to ensure |α|² + |β|² = 1.
-func normalize() -> void:
-    var norm = sqrt((_alpha.x ** 2 + _alpha.y ** 2) + (_beta.x ** 2 + _beta.y ** 2))
-    _alpha /= norm
-    _beta /= norm

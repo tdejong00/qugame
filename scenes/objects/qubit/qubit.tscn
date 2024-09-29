@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bsi2sm86hkhor"]
+[gd_scene load_steps=16 format=3 uid="uid://bsi2sm86hkhor"]
 
 [ext_resource type="Script" path="res://scenes/objects/qubit/qubit.gd" id="1_l4ays"]
 [ext_resource type="Shader" path="res://scenes/objects/qubit/bloch_sphere.gdshader" id="2_31cjo"]
@@ -50,9 +50,6 @@ top_radius = 0.01
 bottom_radius = 0.01
 height = 0.75
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_4edis"]
-radius = 2.0
-
 [sub_resource type="SphereMesh" id="SphereMesh_y8nnr"]
 material = ExtResource("2_u3hps")
 height = 0.5
@@ -103,11 +100,6 @@ mesh = SubResource("CylinderMesh_u1148")
 
 [node name="Base" type="Node3D" parent="."]
 
-[node name="Area3D" type="Area3D" parent="Base" groups=["interactable"]]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/Area3D"]
-shape = SubResource("SphereShape3D_4edis")
-
 [node name="StaticBody3D" type="StaticBody3D" parent="Base"]
 collision_layer = 2
 collision_mask = 0
@@ -118,6 +110,3 @@ skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Base/StaticBody3D"]
 shape = SubResource("SphereShape3D_xauho")
-
-[connection signal="body_entered" from="Base/Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="Base/Area3D" to="." method="_on_area_3d_body_exited"]
