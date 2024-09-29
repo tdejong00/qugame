@@ -1,0 +1,110 @@
+[gd_scene load_steps=16 format=3 uid="uid://bsi2sm86hkhor"]
+
+[ext_resource type="Script" path="res://scenes/objects/qubit/qubit.gd" id="1_l4ays"]
+[ext_resource type="Shader" path="res://scenes/objects/qubit/bloch_sphere.gdshader" id="2_31cjo"]
+[ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/black.tres" id="2_u3hps"]
+[ext_resource type="Material" uid="uid://be2mlb4cmisim" path="res://assets/blue.tres" id="4_myud1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sywhx"]
+blend_mode = 1
+cull_mode = 1
+roughness = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_arq8k"]
+material = SubResource("StandardMaterial3D_sywhx")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fhtte"]
+render_priority = 0
+shader = ExtResource("2_31cjo")
+
+[sub_resource type="SphereMesh" id="SphereMesh_i4m4n"]
+material = SubResource("ShaderMaterial_fhtte")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qcvbw"]
+material = ExtResource("2_u3hps")
+top_radius = 0.008
+bottom_radius = 0.008
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cu52b"]
+material = ExtResource("2_u3hps")
+top_radius = 0.008
+bottom_radius = 0.008
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ysoj8"]
+material = ExtResource("2_u3hps")
+top_radius = 0.008
+bottom_radius = 0.008
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_m0d5l"]
+material = ExtResource("4_myud1")
+top_radius = 0.0
+bottom_radius = 0.038
+height = 0.075
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_u1148"]
+material = ExtResource("4_myud1")
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.75
+
+[sub_resource type="SphereMesh" id="SphereMesh_y8nnr"]
+material = ExtResource("2_u3hps")
+height = 0.5
+is_hemisphere = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xauho"]
+
+[node name="Qubit" type="Node3D"]
+script = ExtResource("1_l4ays")
+
+[node name="BlochSphere" type="Node3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.82432, 0)
+visible = false
+
+[node name="InvertedSphere" type="MeshInstance3D" parent="BlochSphere"]
+mesh = SubResource("SphereMesh_arq8k")
+
+[node name="GridSphere" type="MeshInstance3D" parent="BlochSphere"]
+mesh = SubResource("SphereMesh_i4m4n")
+skeleton = NodePath("")
+
+[node name="Axes" type="Node3D" parent="BlochSphere"]
+
+[node name="AxisX" type="MeshInstance3D" parent="BlochSphere/Axes"]
+transform = Transform3D(1.31134e-07, 1, 4.37114e-08, 8.74228e-08, 4.37114e-08, -1, -1, 1.31134e-07, -8.74228e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_qcvbw")
+skeleton = NodePath("../../GridSphere")
+
+[node name="AxisY" type="MeshInstance3D" parent="BlochSphere/Axes"]
+mesh = SubResource("CylinderMesh_cu52b")
+skeleton = NodePath("../AxisX")
+
+[node name="AxisZ" type="MeshInstance3D" parent="BlochSphere/Axes"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_ysoj8")
+skeleton = NodePath("../AxisX")
+
+[node name="Arrow" type="Node3D" parent="BlochSphere"]
+transform = Transform3D(0.499999, -0.5, 0.707107, 0.707106, 0.707107, 0, -0.499999, 0.5, 0.707107, 0, 0, 0)
+
+[node name="ArrowHead" type="MeshInstance3D" parent="BlochSphere/Arrow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("CylinderMesh_m0d5l")
+
+[node name="ArrowBody" type="MeshInstance3D" parent="BlochSphere/Arrow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
+mesh = SubResource("CylinderMesh_u1148")
+
+[node name="Base" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Base"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Base/StaticBody3D"]
+mesh = SubResource("SphereMesh_y8nnr")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/StaticBody3D"]
+shape = SubResource("SphereShape3D_xauho")
