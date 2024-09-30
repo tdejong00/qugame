@@ -16,10 +16,13 @@ const SCENE: PackedScene = preload("res://scenes/objects/qubit/qubit.tscn")
 ## Speed at which the Bloch sphere arrow rotates towards its target orientation.
 const ROTATION_SPEED: float = 5.0
 
+## Whether the bloch shpere is shown by default.
+@export var show_bloch_sphere: bool = true
+
 ## The amplitude for the |0⟩ state.
-var _alpha: Vector2 = Vector2.RIGHT
+var alpha: Vector2 = Vector2.RIGHT
 ## The amplitude for the |1⟩ state.
-var _beta: Vector2 = Vector2.ZERO
+var beta: Vector2 = Vector2.ZERO
 ## The polar angle that determines the qubit's position on the Bloch sphere.
 var _theta: float = 0.0
 ## The azimuthal angle that represents the relative phase between α and β.
@@ -29,34 +32,9 @@ var _phi: float = 0.0
 @onready var bloch_sphere_arrow: Node3D = $BlochSphere/Arrow
 
 
-## Creates qubit instance and initializes it with the specified amplitudes.
-static func create(alpha: Vector2, beta: Vector2) -> Qubit:
-    var instance: Qubit = SCENE.instantiate()
-    instance._alpha = alpha
-    instance._beta = beta
-    return instance
-
-
 func _ready() -> void:
-    # Ensure that |α|² + |β|² = 1.
-    var alpha_norm = sqrt(_alpha.x ** 2 + _alpha.y ** 2)
-    var beta_norm = sqrt(_beta.x ** 2 + _beta.y ** 2)
-    assert(alpha_norm + beta_norm == 1)
-    
-    # Set theta angle
-    _theta = 2 * acos(alpha_norm)
-    
-    # Set phi angle
-    var alpha_phase = atan2(_alpha.y, _alpha.x)
-    var beta_phase = atan2(_beta.y, _beta.x)
-    _phi = beta_phase - alpha_phase
-    
-    # Ensure phi is within range [0, 2π]
-    if _phi < 0:
-        _phi += PI * 2
-        
-    # Disable visibility of bloch sphere by default
-    bloch_sphere.visible = false
+    update()
+    bloch_sphere.visible = show_bloch_sphere
 
 
 func _physics_process(delta: float) -> void:
@@ -69,8 +47,24 @@ func _physics_process(delta: float) -> void:
 
 ## Returns a string representation of the qubit state in Dirac notation.
 func _to_string() -> String:
-    return "|Ψ⟩ = " + str(_alpha) + "|0⟩ " + str(_beta) + "|1⟩"
+    return "|Ψ⟩ = " + str(alpha) + "|0⟩ " + str(beta) + "|1⟩"
 
+
+func update():    
+    print(self)
+    
+    # Set theta angle
+    var alpha_norm = sqrt(alpha.x ** 2 + alpha.y ** 2)
+    _theta = 2 * acos(alpha_norm)
+    
+    # Set phi angle
+    var alpha_phase = atan2(alpha.y, alpha.x)
+    var beta_phase = atan2(beta.y, beta.x)
+    _phi = beta_phase - alpha_phase
+    
+    # Ensure phi is within range [0, 2π]
+    if _phi < 0:
+        _phi += PI * 2
 
 ## Toggles visibility of bloch sphere when interacted with.
 func interact() -> void:

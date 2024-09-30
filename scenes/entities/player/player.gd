@@ -16,6 +16,8 @@ class_name Player extends CharacterBody3D
 @export_group("Camera")
 ## Sensitivity of the camera to mouse movement.
 @export var camera_sensitivity: float = 1.0
+## Whether the camera bobbing effect is enabled.
+@export var enable_bobbing: bool = false
 ## Frequency at which the camera bobbing effect occurs while the player is moving.
 @export var bob_frequency: float = 2.0
 ## Amplitude of the camera bobbing effect, which determines how 
@@ -91,7 +93,7 @@ func _physics_process(delta: float) -> void:
         velocity.z = lerp(velocity.z, direction.z * speed, delta)
 
     # Handle view bobbing
-    if is_on_floor():
+    if enable_bobbing and is_on_floor():
         _bob_t += velocity.length() * delta
         bob_camera(_bob_t)
 

@@ -8,7 +8,8 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sywhx"]
 blend_mode = 1
 cull_mode = 1
-roughness = 0.0
+disable_receive_shadows = true
+shadow_to_opacity = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_arq8k"]
 material = SubResource("StandardMaterial3D_sywhx")
@@ -52,17 +53,18 @@ height = 0.75
 
 [sub_resource type="SphereMesh" id="SphereMesh_y8nnr"]
 material = ExtResource("2_u3hps")
-height = 0.5
+radius = 0.25
+height = 0.25
 is_hemisphere = true
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xauho"]
+radius = 0.25
 
 [node name="Qubit" type="Node3D"]
 script = ExtResource("1_l4ays")
 
 [node name="BlochSphere" type="Node3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.82432, 0)
-visible = false
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 1.25, 0)
 
 [node name="InvertedSphere" type="MeshInstance3D" parent="BlochSphere"]
 mesh = SubResource("SphereMesh_arq8k")
@@ -88,7 +90,7 @@ mesh = SubResource("CylinderMesh_ysoj8")
 skeleton = NodePath("../AxisX")
 
 [node name="Arrow" type="Node3D" parent="BlochSphere"]
-transform = Transform3D(0.499999, -0.5, 0.707107, 0.707106, 0.707107, 0, -0.499999, 0.5, 0.707107, 0, 0, 0)
+transform = Transform3D(0.999998, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="ArrowHead" type="MeshInstance3D" parent="BlochSphere/Arrow"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
