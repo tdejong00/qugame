@@ -15,8 +15,9 @@ points = PackedVector3Array(-50, 0, -50, -50, 0, 50, 50, 0, -50, 50, 0, 50)
 [node name="Player" parent="." instance=ExtResource("2_s1drc")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 3)
 
-[node name="Qubit" parent="." instance=ExtResource("2_mgg4g")]
+[node name="Qubit" parent="." node_paths=PackedStringArray("quantum_gate") instance=ExtResource("2_mgg4g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+quantum_gate = NodePath("../PauliYGate")
 active = true
 
 [node name="PauliYGate" parent="." node_paths=PackedStringArray("qubit_in", "qubit_out") instance=ExtResource("3_wbgj1")]
@@ -25,14 +26,6 @@ qubit_out = NodePath("../Qubit2")
 
 [node name="Qubit2" parent="." instance=ExtResource("2_mgg4g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-
-[node name="PauliYGate2" parent="." node_paths=PackedStringArray("qubit_in", "qubit_out") instance=ExtResource("3_wbgj1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
-qubit_in = NodePath("../Qubit2")
-qubit_out = NodePath("../Qubit3")
-
-[node name="Qubit3" parent="." instance=ExtResource("2_mgg4g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
 
 [node name="Floor" type="StaticBody3D" parent="."]
 collision_layer = 4

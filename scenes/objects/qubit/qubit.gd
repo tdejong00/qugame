@@ -18,6 +18,8 @@ const ROTATION_SPEED: float = 5.0
 
 ## Whether the bloch shpere is shown by default.
 @export var show_bloch_sphere: bool = true
+## The quantum gate which this qubit is an input for.
+@export var quantum_gate: QuantumGate
 
 ## The amplitude for the |0⟩ state.
 var alpha: Vector2 = Vector2.RIGHT
@@ -33,8 +35,8 @@ var _phi: float = 0.0
 
 
 func _ready() -> void:
-    update()
     bloch_sphere.visible = show_bloch_sphere
+    propagate()
 
 
 func _physics_process(delta: float) -> void:
@@ -60,8 +62,9 @@ func is_one() -> bool:
     return alpha == Vector2.ZERO && beta == Vector2.RIGHT
 
 
-## Updates the polar angle and relative phase of the qubit.
-func update() -> void:
+## Updates the polar angle and relative phase of the qubit
+## and propagates the result to the next quantum gate.
+func propagate() -> void:
     print(self)
     
     # Set theta angle
@@ -77,10 +80,13 @@ func update() -> void:
     if _phi < 0:
         _phi += PI * 2
 
+    if quantum_gate != null:
+        quantum_gate.propagate()
+
 
 ## Toggles between basis states.
 func interact() -> void:
     assert(is_zero() || is_one())
     alpha.x = 0 ** alpha.x
     beta.x = 0 ** beta.x
-    update()
+    propagate()
