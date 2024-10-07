@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
     # Determine if looking at interactable object
     if ray_cast.is_colliding():
         var collider = ray_cast.get_collider().get_parent()
-        if collider is Interactable:
+        if collider is Interactable and collider.active:
             interactable = collider
             ui.interaction_label.text = collider.interaction_text
         else:

@@ -1,6 +1,8 @@
 ## Represents an interactable object in the game world.
 class_name Interactable extends Node3D
 
+## Whether the interactable can be interacted with.
+@export var active: bool = false
 ## interaction_radius of the interactable area.
 @export_range(0.0, 100.0) var interaction_radius: float = 2.0
 ## Text which will be displayed while interactable.
