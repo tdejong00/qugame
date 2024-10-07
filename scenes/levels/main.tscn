@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bsi2sm86hkhor" path="res://scenes/objects/qubit/qubit.tscn" id="2_mgg4g"]
 [ext_resource type="PackedScene" uid="uid://ckk03qsadcwlw" path="res://scenes/entities/player/player.tscn" id="2_s1drc"]
-[ext_resource type="PackedScene" uid="uid://dnn7gxjnik7iw" path="res://scenes/objects/gates/hadamard_gate/hadamard_gate.tscn" id="3_wq7y3"]
+[ext_resource type="PackedScene" uid="uid://jwahwo270x0" path="res://scenes/objects/gates/pauli_y_gate/pauli_y_gate.tscn" id="3_wbgj1"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7jt82"]
 size = Vector2(100, 100)
@@ -17,9 +17,22 @@ transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 3)
 
 [node name="Qubit" parent="." instance=ExtResource("2_mgg4g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+active = true
+
+[node name="PauliYGate" parent="." node_paths=PackedStringArray("qubit_in", "qubit_out") instance=ExtResource("3_wbgj1")]
+qubit_in = NodePath("../Qubit")
+qubit_out = NodePath("../Qubit2")
 
 [node name="Qubit2" parent="." instance=ExtResource("2_mgg4g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="PauliYGate2" parent="." node_paths=PackedStringArray("qubit_in", "qubit_out") instance=ExtResource("3_wbgj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+qubit_in = NodePath("../Qubit2")
+qubit_out = NodePath("../Qubit3")
+
+[node name="Qubit3" parent="." instance=ExtResource("2_mgg4g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
 
 [node name="Floor" type="StaticBody3D" parent="."]
 collision_layer = 4
@@ -30,7 +43,3 @@ mesh = SubResource("PlaneMesh_7jt82")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("ConvexPolygonShape3D_76wk4")
-
-[node name="HadamardGate" parent="." node_paths=PackedStringArray("qubit_in", "qubit_out") instance=ExtResource("3_wq7y3")]
-qubit_in = NodePath("../Qubit")
-qubit_out = NodePath("../Qubit2")

@@ -50,7 +50,18 @@ func _to_string() -> String:
     return "|Ψ⟩ = " + str(alpha) + "|0⟩ " + str(beta) + "|1⟩"
 
 
-func update():    
+## Determines whether the qubit represents |0⟩.
+func is_zero() -> bool:
+    return alpha == Vector2.RIGHT && beta == Vector2.ZERO
+
+
+## Determines whether the qubit represents |1⟩.
+func is_one() -> bool:
+    return alpha == Vector2.ZERO && beta == Vector2.RIGHT
+
+
+## Updates the polar angle and relative phase of the qubit.
+func update() -> void:
     print(self)
     
     # Set theta angle
@@ -66,6 +77,10 @@ func update():
     if _phi < 0:
         _phi += PI * 2
 
-## Toggles visibility of bloch sphere when interacted with.
+
+## Toggles between basis states.
 func interact() -> void:
-    bloch_sphere.visible = !bloch_sphere.visible
+    assert(is_zero() || is_one())
+    alpha.x = 0 ** alpha.x
+    beta.x = 0 ** beta.x
+    update()
