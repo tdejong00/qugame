@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://65xnlas5jt2i"]
 
-[ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/black.tres" id="1_ae08p"]
+[ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/materials/black.tres" id="1_ae08p"]
 [ext_resource type="Script" path="res://scenes/objects/circuit/quantum_gate_slot.gd" id="1_fk7hm"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_umt0p"]

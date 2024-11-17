@@ -32,6 +32,8 @@ var _phi: float = 0.0
 
 @onready var bloch_sphere: Node3D = $BlochSphere
 @onready var bloch_sphere_arrow: Node3D = $BlochSphere/Arrow
+@onready var bloch_sphere_arrow_head: MeshInstance3D = $BlochSphere/Arrow/ArrowHead
+@onready var bloch_sphere_arrow_body: MeshInstance3D = $BlochSphere/Arrow/ArrowBody
 
 
 func _ready() -> void:

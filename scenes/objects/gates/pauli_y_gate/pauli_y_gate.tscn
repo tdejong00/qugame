@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://jwahwo270x0"]
 
 [ext_resource type="Script" path="res://scenes/objects/gates/pauli_y_gate/pauli_y_gate.gd" id="1_ja188"]
-[ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/black.tres" id="2_u5liw"]
-[ext_resource type="Material" uid="uid://be2mlb4cmisim" path="res://assets/blue.tres" id="3_wuvy8"]
+[ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/materials/grey.tres" id="2_u5liw"]
+[ext_resource type="Material" uid="uid://be2mlb4cmisim" path="res://assets/materials/blue.tres" id="3_wuvy8"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_y18hi"]
 material = ExtResource("2_u5liw")

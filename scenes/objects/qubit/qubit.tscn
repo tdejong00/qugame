@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scenes/objects/qubit/qubit.gd" id="1_l4ays"]
 [ext_resource type="Shader" path="res://scenes/objects/qubit/bloch_sphere.gdshader" id="2_31cjo"]
-[ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/black.tres" id="2_u3hps"]
-[ext_resource type="Material" uid="uid://be2mlb4cmisim" path="res://assets/blue.tres" id="4_myud1"]
+[ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/materials/grey.tres" id="2_u3hps"]
+[ext_resource type="Material" uid="uid://be2mlb4cmisim" path="res://assets/materials/blue.tres" id="4_myud1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sywhx"]
 blend_mode = 1
