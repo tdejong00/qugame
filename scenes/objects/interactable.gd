@@ -26,5 +26,5 @@ func _enter_tree() -> void:
 
 
 ## Called when the interactable object is activated.
-func interact() -> void:
+func interact(key: String) -> void:
     pass

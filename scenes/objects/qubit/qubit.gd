@@ -85,8 +85,9 @@ func propagate() -> void:
 
 
 ## Toggles between basis states.
-func interact() -> void:
-    assert(is_zero() || is_one())
-    alpha.x = 0 ** alpha.x
-    beta.x = 0 ** beta.x
-    propagate()
+func interact(key: String) -> void:
+    if key == "F":
+        assert(is_zero() || is_one())
+        alpha.x = 0 ** alpha.x
+        beta.x = 0 ** beta.x
+        propagate()

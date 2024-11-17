@@ -57,14 +57,6 @@ func _physics_process(delta: float) -> void:
         interactable = null
         ui.interaction_label.text = ""
     
-    # Handle interactions
-    if Input.is_action_just_pressed("interact") and interactable != null:
-        interactable.interact()
-        
-    # Quit game
-    if Input.is_action_just_pressed("quit"):
-        get_tree().quit()
-    
     # Handle _gravity
     if not is_on_floor():
         velocity.y -= gravity * delta
@@ -101,6 +93,15 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event) -> void:
+    if event is InputEventKey:
+        # Handle interactions
+        if Input.is_action_just_pressed("interact") and interactable != null:
+            interactable.interact(event.as_text_key_label())
+
+        # Quit game
+        if Input.is_action_just_pressed("quit"):
+            get_tree().quit()
+
     # Handle camera movement
     if event is InputEventMouseMotion:
         rotate_camera(event)
