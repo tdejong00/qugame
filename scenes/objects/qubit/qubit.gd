@@ -18,8 +18,8 @@ const ROTATION_SPEED: float = 5.0
 
 ## Whether the bloch shpere is shown by default.
 @export var show_bloch_sphere: bool = true
-## The quantum gate which this qubit is an input for.
-@export var quantum_gate: QuantumGate
+## The quantum circuit slot which this qubit is an input for.
+@export var slot: QuantumCircuitSlot
 
 ## The amplitude for the |0⟩ state.
 var alpha: Vector2 = Vector2.RIGHT
@@ -80,8 +80,8 @@ func propagate() -> void:
     if _phi < 0:
         _phi += PI * 2
 
-    if quantum_gate != null:
-        quantum_gate.propagate()
+    if slot != null:
+        slot.propagate()
 
 
 ## Toggles between basis states.
