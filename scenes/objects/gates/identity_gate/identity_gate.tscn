@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c22a2s455orx7"]
 
 [ext_resource type="Script" path="res://scenes/objects/gates/identity_gate/identity_gate.gd" id="1_75w2r"]
-[ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/materials/grey.tres" id="1_fjqbi"]
+[ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/materials/black.tres" id="1_fjqbi"]
 [ext_resource type="Material" uid="uid://be2mlb4cmisim" path="res://assets/materials/blue.tres" id="3_u1hpi"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_t8urp"]

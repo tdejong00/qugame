@@ -1,25 +1,27 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1ngqaf6fb2ak"]
+[gd_scene load_steps=10 format=3 uid="uid://b1ngqaf6fb2ak"]
 
+[ext_resource type="Material" uid="uid://b1yn56oqf1vd1" path="res://assets/materials/grey.tres" id="2_bguh0"]
 [ext_resource type="PackedScene" uid="uid://bsi2sm86hkhor" path="res://scenes/objects/qubit/qubit.tscn" id="2_mgg4g"]
 [ext_resource type="PackedScene" uid="uid://ckk03qsadcwlw" path="res://scenes/entities/player/player.tscn" id="2_s1drc"]
 [ext_resource type="PackedScene" uid="uid://65xnlas5jt2i" path="res://scenes/objects/circuit/quantum_gate_slot.tscn" id="3_ynpfr"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rhbbk"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gyik4"]
 sky_top_color = Color(0.134281, 0.16838, 0.215799, 1)
 sky_horizon_color = Color(0.598989, 0.597969, 0.598742, 1)
 ground_bottom_color = Color(0.261676, 0.223495, 0.179171, 1)
 ground_horizon_color = Color(0.598989, 0.597969, 0.598742, 1)
 
-[sub_resource type="Sky" id="Sky_hbtd5"]
-sky_material = SubResource("ProceduralSkyMaterial_rhbbk")
+[sub_resource type="Sky" id="Sky_5thir"]
+sky_material = SubResource("ProceduralSkyMaterial_gyik4")
 
-[sub_resource type="Environment" id="Environment_c4wut"]
+[sub_resource type="Environment" id="Environment_hc8un"]
 background_mode = 2
-sky = SubResource("Sky_hbtd5")
+sky = SubResource("Sky_5thir")
 tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7jt82"]
+material = ExtResource("2_bguh0")
 size = Vector2(100, 100)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_76wk4"]
@@ -27,8 +29,11 @@ points = PackedVector3Array(-50, 0, -50, -50, 0, 50, 50, 0, -50, 50, 0, 50)
 
 [node name="Main" type="Node3D"]
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.788011, 0.546098, -0.284281, 0, 0.461749, 0.887011, 0.615662, -0.698974, 0.363863, 0, 4, 0)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_c4wut")
+environment = SubResource("Environment_hc8un")
 
 [node name="Player" parent="." instance=ExtResource("2_s1drc")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 3)
