@@ -37,59 +37,59 @@ var _phi: float = 0.0
 
 
 func _ready() -> void:
-    bloch_sphere.visible = show_bloch_sphere
-    propagate()
+	bloch_sphere.visible = show_bloch_sphere
+	propagate()
 
 
 func _physics_process(delta: float) -> void:
-    # Rotate towards target rotation
-    if bloch_sphere_arrow.rotation.z != -_theta:
-        bloch_sphere_arrow.rotation.z = lerp_angle(bloch_sphere_arrow.rotation.z,-_theta, ROTATION_SPEED * delta)
-    if bloch_sphere_arrow.rotation.y != _phi:
-        bloch_sphere_arrow.rotation.y = lerp_angle(bloch_sphere_arrow.rotation.y, _phi, ROTATION_SPEED * delta)
+	# Rotate towards target rotation
+	if bloch_sphere_arrow.rotation.z != -_theta:
+		bloch_sphere_arrow.rotation.z = lerp_angle(bloch_sphere_arrow.rotation.z,-_theta, ROTATION_SPEED * delta)
+	if bloch_sphere_arrow.rotation.y != _phi:
+		bloch_sphere_arrow.rotation.y = lerp_angle(bloch_sphere_arrow.rotation.y, _phi, ROTATION_SPEED * delta)
 
 
 ## Returns a string representation of the qubit state in Dirac notation.
 func _to_string() -> String:
-    return "|Ψ⟩ = " + str(alpha) + "|0⟩ " + str(beta) + "|1⟩"
+	return "|Ψ⟩ = " + str(alpha) + "|0⟩ " + str(beta) + "|1⟩"
 
 
 ## Determines whether the qubit represents |0⟩.
 func is_zero() -> bool:
-    return alpha == Vector2.RIGHT && beta == Vector2.ZERO
+	return alpha == Vector2.RIGHT && beta == Vector2.ZERO
 
 
 ## Determines whether the qubit represents |1⟩.
 func is_one() -> bool:
-    return alpha == Vector2.ZERO && beta == Vector2.RIGHT
+	return alpha == Vector2.ZERO && beta == Vector2.RIGHT
 
 
 ## Updates the polar angle and relative phase of the qubit
 ## and propagates the result to the next quantum gate.
 func propagate() -> void:
-    print(self)
-    
-    # Set theta angle
-    var alpha_norm = sqrt(alpha.x ** 2 + alpha.y ** 2)
-    _theta = 2 * acos(alpha_norm)
-    
-    # Set phi angle
-    var alpha_phase = atan2(alpha.y, alpha.x)
-    var beta_phase = atan2(beta.y, beta.x)
-    _phi = beta_phase - alpha_phase
-    
-    # Ensure phi is within range [0, 2π]
-    if _phi < 0:
-        _phi += PI * 2
+	print(self)
+	
+	# Set theta angle
+	var alpha_norm = sqrt(alpha.x ** 2 + alpha.y ** 2)
+	_theta = 2 * acos(alpha_norm)
+	
+	# Set phi angle
+	var alpha_phase = atan2(alpha.y, alpha.x)
+	var beta_phase = atan2(beta.y, beta.x)
+	_phi = beta_phase - alpha_phase
+	
+	# Ensure phi is within range [0, 2π]
+	if _phi < 0:
+		_phi += PI * 2
 
-    if slot != null:
-        slot.propagate()
+	if slot != null:
+		slot.propagate()
 
 
 ## Toggles between basis states.
 func interact(key: String) -> void:
-    if key == "F":
-        assert(is_zero() || is_one())
-        alpha.x = 0 ** alpha.x
-        beta.x = 0 ** beta.x
-        propagate()
+	if key == "F":
+		assert(is_zero() || is_one())
+		alpha.x = 0 ** alpha.x
+		beta.x = 0 ** beta.x
+		propagate()

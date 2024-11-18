@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://7fwe8i5kgvl3"]
+
+[ext_resource type="Script" path="res://scenes/objects/gates/pi_8_gate/pi_8_gate.gd" id="1_pqybs"]
+[ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/materials/black.tres" id="2_8oc2g"]
+[ext_resource type="Material" uid="uid://be2mlb4cmisim" path="res://assets/materials/blue.tres" id="3_ekde3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_y18hi"]
+material = ExtResource("2_8oc2g")
+size = Vector3(1, 0.4, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_tmxja"]
+material = ExtResource("3_ekde3")
+text = "T"
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mvdau"]
+points = PackedVector3Array(-0.5, -0.2, -0.5, -0.5, 0.2, -0.5, 0.5, -0.2, -0.5, -0.5, -0.2, 0.5, -0.5, 0.2, 0.5, 0.5, 0.2, -0.5, 0.5, -0.2, 0.5, 0.5, 0.2, 0.5)
+
+[node name="PauliYGate" type="Node3D"]
+script = ExtResource("1_pqybs")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_y18hi")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(5, -2.84217e-14, 0, -7.7647e-22, -2.18557e-07, 5, -2.84217e-14, -5, -2.18557e-07, 0, 0.25, 0)
+mesh = SubResource("TextMesh_tmxja")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_mvdau")

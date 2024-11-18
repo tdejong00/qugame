@@ -6,7 +6,7 @@ const SCENE: PackedScene = preload("res://scenes/objects/gates/pauli_y_gate/paul
 
 
 func _init() -> void:
-    _matrix = [
-        Vector2(0.0, 0.0), Vector2(0.0, -1.0),
-        Vector2(0.0, 1.0), Vector2(0.0, 0.0)
-    ]
+	_matrix = [
+		Vector2(0.0, 0.0), Vector2(0.0, -1.0),
+		Vector2(0.0, 1.0), Vector2(0.0, 0.0)
+	]
