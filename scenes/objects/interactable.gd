@@ -13,18 +13,18 @@ var collision_shape: CollisionShape3D
 
 
 func _enter_tree() -> void:
-	# Create Area3D node
-	area = Area3D.new()
-	add_child(area)
-	
-	# Create spherical CollisionShape3D node with specified radius
-	var shape = SphereShape3D.new()
-	shape.radius = interaction_radius
-	collision_shape = CollisionShape3D.new()    
-	collision_shape.shape = shape
-	area.add_child(collision_shape)
+    # Create Area3D node
+    area = Area3D.new()
+    add_child(area)
+
+    # Create spherical CollisionShape3D node with specified radius
+    var shape = SphereShape3D.new()
+    shape.radius = interaction_radius
+    collision_shape = CollisionShape3D.new()
+    collision_shape.shape = shape
+    area.add_child(collision_shape)
 
 
 ## Called when the interactable object is activated.
 func interact(key: String) -> void:
-	pass
+    pass

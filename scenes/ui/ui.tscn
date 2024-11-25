@@ -27,7 +27,9 @@ theme_override_constants/margin_bottom = 32
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 8
+theme_override_constants/separation = 16
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -35,3 +37,128 @@ size_flags_horizontal = 4
 
 [node name="InteractionLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
+
+[node name="Buttons" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="IdentityButton" type="Button" parent="Control/MarginContainer/VBoxContainer/Buttons"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "I"
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/Buttons/IdentityButton"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -34.0
+offset_right = 34.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HadamardButton" type="Button" parent="Control/MarginContainer/VBoxContainer/Buttons"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "H"
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/Buttons/HadamardButton"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -34.0
+offset_right = 34.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauliXButton" type="Button" parent="Control/MarginContainer/VBoxContainer/Buttons"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "X"
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/Buttons/PauliXButton"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -34.0
+offset_right = 34.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauliYButton" type="Button" parent="Control/MarginContainer/VBoxContainer/Buttons"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Y"
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/Buttons/PauliYButton"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -34.0
+offset_right = 34.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauliZButton" type="Button" parent="Control/MarginContainer/VBoxContainer/Buttons"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Z"
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/Buttons/PauliZButton"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -34.0
+offset_right = 34.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PiOverEightButton" type="Button" parent="Control/MarginContainer/VBoxContainer/Buttons"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "π/8"
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/Buttons/PiOverEightButton"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -34.0
+offset_right = 34.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "6"
+horizontal_alignment = 1
+vertical_alignment = 1
