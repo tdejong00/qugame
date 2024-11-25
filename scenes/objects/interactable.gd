@@ -13,6 +13,9 @@ var collision_shape: CollisionShape3D
 
 
 func _enter_tree() -> void:
+    if not active:
+        return
+
     # Create Area3D node
     area = Area3D.new()
     add_child(area)
