@@ -24,6 +24,22 @@ class_name Player extends CharacterBody3D
 ## much the camera moves up and down while the player is walking.
 @export var bob_amplitude: float = 0.04
 
+@export_group("Restrictions")
+## Maximum amount of allowed gates in the circuit.
+@export var size_limit: int = 3
+## Whether the identity gate can be used in the circuit.
+@export var allow_identity: bool = true
+## Whether the Hadamard gate can be used in the circuit.
+@export var allow_hadamard: bool = true
+## Whether the Pauli-X gate can be used in the circuit.
+@export var allow_pauli_x: bool = true
+## Whether the Pauli-Y gate can be used in the circuit.
+@export var allow_pauli_y: bool = true
+## Whether the Pauliy-Z gate can be used in the circuit.
+@export var allow_pauli_z: bool = true
+## Whether the π/8 gate can be used in the circuit.
+@export var allow_pi_over_eight: bool = true
+
 ## Current interactable object.
 var interactable: Interactable
 
@@ -39,8 +55,17 @@ var _bob_t: float = 0.0
 func _ready() -> void:
     # Stop ray cast from hitting player
     ray_cast.add_exception(self)
+
     # Capture mouse
     Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+    # Update allowed gates
+    player.ui.identity_button.disabled = !allow_identity
+    player.ui.hadamard_button.disabled = !allow_hadamard
+    player.ui.pauli_x_button.disabled = !allow_pauli_x
+    player.ui.pauli_y_button.disabled = !allow_pauli_y
+    player.ui.pauli_z_button.disabled = !allow_pauli_z
+    player.ui.pi_over_eight_button.disabled = !allow_pi_over_eight
 
 
 func _physics_process(delta: float) -> void:

@@ -37,6 +37,11 @@ environment = SubResource("Environment_hc8un")
 
 [node name="Player" parent="." instance=ExtResource("2_s1drc")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 3)
+allow_identity = false
+allow_pauli_x = false
+allow_pauli_y = false
+allow_pauli_z = false
+allow_pi_over_eight = false
 
 [node name="Floor" type="StaticBody3D" parent="."]
 collision_layer = 4

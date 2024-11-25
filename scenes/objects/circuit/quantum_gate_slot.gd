@@ -57,12 +57,19 @@ func set_gate(gate_scene: PackedScene) -> void:
         add_child(qubit_out)
 
     # Add new empty slot
-    if next_slot == null:
+    if can_add_empty_slot():
         next_slot = create_slot(qubit_out.position, qubit_out)
         add_child(next_slot)
 
     # Update circuit
     qubit_in.propagate()
+
+
+## Determines whether an empty slot can be added based on the size restriction.
+func can_add_empty_slot():
+    var player: Player = get_tree().get_first_node_in_group("player")
+    var slots = get_tree().get_nodes_in_group("circuit")
+    return next_slot == null and slots.size() < player.size_limit
 
 
 ## Clears the quantum gate slot and all following slots.

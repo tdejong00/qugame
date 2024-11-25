@@ -21,6 +21,11 @@ window/layer_3="environment"
 window/layer_2="world"
 window/layer_1="player"
 
+[global_group]
+
+player=""
+circuit=""
+
 [input]
 
 move_up={

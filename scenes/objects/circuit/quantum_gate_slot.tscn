@@ -15,7 +15,7 @@ is_hemisphere = true
 [sub_resource type="SphereShape3D" id="SphereShape3D_elb6m"]
 radius = 0.25
 
-[node name="QuantumGateSlot" type="Node3D"]
+[node name="QuantumGateSlot" type="Node3D" groups=["circuit"]]
 script = ExtResource("1_fk7hm")
 
 [node name="Base" type="Node3D" parent="."]
