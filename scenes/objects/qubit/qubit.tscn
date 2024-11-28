@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/objects/qubit/qubit.gd" id="1_l4ays"]
 [ext_resource type="Shader" path="res://scenes/objects/qubit/bloch_sphere.gdshader" id="2_31cjo"]
 [ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/materials/black.tres" id="2_u3hps"]
-[ext_resource type="Material" uid="uid://be2mlb4cmisim" path="res://assets/materials/blue.tres" id="4_myud1"]
+[ext_resource type="Material" uid="uid://cmf7aavadg3ob" path="res://assets/materials/red.tres" id="4_xhvca"]
 [ext_resource type="PackedScene" uid="uid://cg125dad6a2gi" path="res://addons/kaykit_space_base_bits/Assets/gltf/lander_base.gltf" id="5_k2sy0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sywhx"]
@@ -41,13 +41,13 @@ bottom_radius = 0.008
 height = 1.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_m0d5l"]
-material = ExtResource("4_myud1")
+material = ExtResource("4_xhvca")
 top_radius = 0.0
 bottom_radius = 0.038
 height = 0.075
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_u1148"]
-material = ExtResource("4_myud1")
+material = ExtResource("4_xhvca")
 top_radius = 0.01
 bottom_radius = 0.01
 height = 0.75
