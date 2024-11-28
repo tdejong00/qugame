@@ -1,31 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://c22a2s455orx7"]
+[gd_scene load_steps=5 format=3 uid="uid://c22a2s455orx7"]
 
 [ext_resource type="Script" path="res://scenes/objects/gates/identity_gate/identity_gate.gd" id="1_75w2r"]
-[ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/materials/black.tres" id="1_fjqbi"]
-[ext_resource type="Material" uid="uid://be2mlb4cmisim" path="res://assets/materials/blue.tres" id="3_u1hpi"]
+[ext_resource type="PackedScene" uid="uid://bealr5knvwopx" path="res://addons/kaykit_space_base_bits/Assets/gltf/roofmodule_base.gltf" id="2_ia31d"]
+[ext_resource type="Material" uid="uid://b1yn56oqf1vd1" path="res://assets/materials/grey.tres" id="3_m06wf"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_t8urp"]
-material = ExtResource("1_fjqbi")
-size = Vector3(1, 0.4, 1)
-
-[sub_resource type="TextMesh" id="TextMesh_gt3xv"]
-material = ExtResource("3_u1hpi")
+[sub_resource type="TextMesh" id="TextMesh_3op8q"]
+material = ExtResource("3_m06wf")
 text = "I"
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_edw1c"]
-points = PackedVector3Array(-0.5, -0.2, -0.5, -0.5, 0.2, -0.5, 0.5, -0.2, -0.5, -0.5, -0.2, 0.5, -0.5, 0.2, 0.5, 0.5, 0.2, -0.5, 0.5, -0.2, 0.5, 0.5, 0.2, 0.5)
+font_size = 96
+depth = 0.1
 
 [node name="IdentityGate" type="Node3D"]
 script = ExtResource("1_75w2r")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="Base" parent="." instance=ExtResource("2_ia31d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-mesh = SubResource("BoxMesh_t8urp")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(5, -2.84217e-14, 0, -7.7647e-22, -2.18557e-07, 5, -2.84217e-14, -5, -2.18557e-07, 0, 0.25, 0)
-mesh = SubResource("TextMesh_gt3xv")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_edw1c")
+[node name="TextMeshInstance" type="MeshInstance3D" parent="Base"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.15, 0)
+mesh = SubResource("TextMesh_3op8q")
+skeleton = NodePath("")

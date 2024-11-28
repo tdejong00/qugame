@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://bsi2sm86hkhor"]
+[gd_scene load_steps=15 format=3 uid="uid://bsi2sm86hkhor"]
 
 [ext_resource type="Script" path="res://scenes/objects/qubit/qubit.gd" id="1_l4ays"]
 [ext_resource type="Shader" path="res://scenes/objects/qubit/bloch_sphere.gdshader" id="2_31cjo"]
 [ext_resource type="Material" uid="uid://cqj87tia0cqks" path="res://assets/materials/black.tres" id="2_u3hps"]
 [ext_resource type="Material" uid="uid://be2mlb4cmisim" path="res://assets/materials/blue.tres" id="4_myud1"]
+[ext_resource type="PackedScene" uid="uid://cg125dad6a2gi" path="res://addons/kaykit_space_base_bits/Assets/gltf/lander_base.gltf" id="5_k2sy0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sywhx"]
 blend_mode = 1
@@ -51,15 +52,6 @@ top_radius = 0.01
 bottom_radius = 0.01
 height = 0.75
 
-[sub_resource type="SphereMesh" id="SphereMesh_y8nnr"]
-material = ExtResource("2_u3hps")
-radius = 0.25
-height = 0.25
-is_hemisphere = true
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_xauho"]
-radius = 0.25
-
 [node name="Qubit" type="Node3D"]
 script = ExtResource("1_l4ays")
 
@@ -100,15 +92,4 @@ mesh = SubResource("CylinderMesh_m0d5l")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
 mesh = SubResource("CylinderMesh_u1148")
 
-[node name="Base" type="Node3D" parent="."]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Base"]
-collision_layer = 2
-collision_mask = 0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Base/StaticBody3D"]
-mesh = SubResource("SphereMesh_y8nnr")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/StaticBody3D"]
-shape = SubResource("SphereShape3D_xauho")
+[node name="Base" parent="." instance=ExtResource("5_k2sy0")]
