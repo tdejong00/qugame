@@ -13,11 +13,16 @@ class_name Qubit extends Interactable
 ## Resource path for creating instances of the Qubit scene.
 const SCENE: PackedScene = preload("res://scenes/objects/qubit/qubit.tscn")
 
+## Resource path for gold material.
+const GOLD_MATERIAL: Material = preload("res://assets/materials/gold.tres")
+
 ## Speed at which the Bloch sphere arrow rotates towards its target orientation.
 const ROTATION_SPEED: float = 5.0
 
 ## Whether the bloch shpere is shown by default.
 @export var show_bloch_sphere: bool = true
+## Whether the qubit represents the goal state of the level.
+@export var is_gold: bool = false
 ## The quantum circuit slot which this qubit is an input for.
 @export var slot: QuantumGateSlot
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bsi2sm86hkhor" path="res://scenes/objects/qubit/qubit.tscn" id="2_mgg4g"]
 [ext_resource type="PackedScene" uid="uid://ckk03qsadcwlw" path="res://scenes/entities/player/player.tscn" id="2_s1drc"]
-[ext_resource type="PackedScene" uid="uid://65xnlas5jt2i" path="res://scenes/objects/circuit/quantum_gate_slot.tscn" id="3_ynpfr"]
+[ext_resource type="PackedScene" uid="uid://65xnlas5jt2i" path="res://scenes/objects/quantum_gate_slot/quantum_gate_slot.tscn" id="3_ynpfr"]
 [ext_resource type="MeshLibrary" uid="uid://d555b7hr33n7" path="res://assets/tiles.tres" id="4_1p5pf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gyik4"]
@@ -25,9 +25,11 @@ glow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hc8un")
 
-[node name="Player" parent="." instance=ExtResource("2_s1drc")]
+[node name="Player" parent="." node_paths=PackedStringArray("input_qubit", "goal_qubit") instance=ExtResource("2_s1drc")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -6, 1, 4)
 size_limit = 4
+input_qubit = NodePath("../QuantumCircuit/InputQubit")
+goal_qubit = NodePath("../QuantumCircuit/GoalQubit")
 
 [node name="Floor" type="GridMap" parent="."]
 mesh_library = ExtResource("4_1p5pf")
@@ -48,13 +50,19 @@ metadata/_editor_floor_ = Vector3(0, 8, 0)
 [node name="QuantumCircuit" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, 0)
 
-[node name="Qubit" parent="QuantumCircuit" node_paths=PackedStringArray("slot") instance=ExtResource("2_mgg4g")]
-slot = NodePath("../QuantumGateSlot")
+[node name="GoalQubit" parent="QuantumCircuit" instance=ExtResource("2_mgg4g")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, -4)
+is_gold = true
+alpha = Vector2(0, 0)
+beta = Vector2(1, 0)
+
+[node name="InputQubit" parent="QuantumCircuit" node_paths=PackedStringArray("slot") instance=ExtResource("2_mgg4g")]
+slot = NodePath("QuantumGateSlot")
 active = true
 
-[node name="QuantumGateSlot" parent="QuantumCircuit" node_paths=PackedStringArray("qubit_in") instance=ExtResource("3_ynpfr")]
+[node name="QuantumGateSlot" parent="QuantumCircuit/InputQubit" node_paths=PackedStringArray("qubit_in") instance=ExtResource("3_ynpfr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-qubit_in = NodePath("../Qubit")
+qubit_in = NodePath("..")
 active = true
 
 [node name="Lamps" type="Node3D" parent="."]

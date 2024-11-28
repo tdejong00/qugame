@@ -98,3 +98,8 @@ func interact(key: String) -> void:
         # Implicitly convert number input to gate type enum 
         var gate_type: QuantumGate.QuantumGateType = key.to_int() - 1
         set_gate(gate_type)
+
+    # Check if goal state reached
+    var player: Player = get_tree().get_first_node_in_group("player")
+    if player.goal_qubit.equals(qubit_out):
+        player.ui.notify("Level complete!")

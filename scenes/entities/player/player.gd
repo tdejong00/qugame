@@ -40,6 +40,12 @@ class_name Player extends CharacterBody3D
 ## Whether the π/8 gate can be used in the circuit.
 @export var allow_pi_over_eight: bool = true
 
+@export_group("Level")
+## The input qubit of the current circuit.
+@export var input_qubit: Qubit
+## The qubit representing the goal state of the current level.
+@export var goal_qubit: Qubit
+
 ## Current interactable object.
 var interactable: Interactable
 
