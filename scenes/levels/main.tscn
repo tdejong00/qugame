@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b1ngqaf6fb2ak"]
+[gd_scene load_steps=8 format=3 uid="uid://b1ngqaf6fb2ak"]
 
-[ext_resource type="Material" uid="uid://b1yn56oqf1vd1" path="res://assets/materials/grey.tres" id="2_bguh0"]
 [ext_resource type="PackedScene" uid="uid://bsi2sm86hkhor" path="res://scenes/objects/qubit/qubit.tscn" id="2_mgg4g"]
 [ext_resource type="PackedScene" uid="uid://ckk03qsadcwlw" path="res://scenes/entities/player/player.tscn" id="2_s1drc"]
 [ext_resource type="PackedScene" uid="uid://65xnlas5jt2i" path="res://scenes/objects/circuit/quantum_gate_slot.tscn" id="3_ynpfr"]
+[ext_resource type="MeshLibrary" uid="uid://d555b7hr33n7" path="res://assets/tiles.tres" id="4_1p5pf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gyik4"]
 sky_top_color = Color(0.134281, 0.16838, 0.215799, 1)
@@ -20,40 +20,33 @@ sky = SubResource("Sky_5thir")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_7jt82"]
-material = ExtResource("2_bguh0")
-size = Vector2(100, 100)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_76wk4"]
-points = PackedVector3Array(-50, 0, -50, -50, 0, 50, 50, 0, -50, 50, 0, 50)
-
 [node name="Main" type="Node3D"]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.788011, 0.546098, -0.284281, 0, 0.461749, 0.887011, 0.615662, -0.698974, 0.363863, 0, 4, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hc8un")
 
 [node name="Player" parent="." instance=ExtResource("2_s1drc")]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 3)
-allow_identity = false
-allow_pauli_x = false
-allow_pauli_y = false
-allow_pauli_z = false
-allow_pi_over_eight = false
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -6, 1, 4)
+size_limit = 4
 
-[node name="Floor" type="StaticBody3D" parent="."]
-collision_layer = 4
-collision_mask = 0
+[node name="Floor" type="GridMap" parent="."]
+mesh_library = ExtResource("4_1p5pf")
+cell_size = Vector3(4, 1, 4)
+data = {
+"cells": PackedInt32Array(65529, 3, 1441859, 65529, 65535, 1441857, 65529, 7, 1441857, -8, 65535, 1441810, 0, 65535, 0, 65535, 65535, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 1, 65535, 0, 1, 65534, 0, 0, 65534, 0, 65535, 65534, 0, 65534, 65534, 0, 65534, 65535, 0, 65534, 0, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 2, 0, 0, 2, 65535, 0, 2, 65534, 0, 65533, 65534, 0, 65533, 65535, 0, 65533, 0, 0, 65533, 1, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-mesh = SubResource("PlaneMesh_7jt82")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("ConvexPolygonShape3D_76wk4")
+[node name="Walls" type="GridMap" parent="."]
+mesh_library = ExtResource("4_1p5pf")
+cell_size = Vector3(4, 1, 4)
+data = {
+"cells": PackedInt32Array(65533, 65533, 11, 65532, 65533, 11, 65532, 65534, 1048587, 65532, 65535, 1048587, 65532, 0, 1048587, 65532, 1, 1048587, 65532, 2, 1048587, 65533, 2, 1048587, 65534, 2, 1048587, 65535, 2, 1048587, 0, 2, 1048587, 1, 2, 1048587, 2, 2, 1048587, 3, 65534, 1048587, 3, 65535, 1048587, 3, 0, 1048587, 3, 1, 1048587, 3, 2, 1048587, 3, 65533, 11, 2, 65533, 11, 1, 65533, 11, 0, 65533, 11, 65535, 65533, 11, 65534, 65533, 11, 327676, 65533, 1048587, 327677, 65533, 1048587, 327678, 65533, 1048587, 327679, 65533, 1048587, 262144, 65533, 1048587, 262145, 65533, 1048587, 262147, 65533, 1048587, 262146, 65533, 1048587, 262147, 65534, 1048587, 262147, 65535, 1048587, 262147, 0, 1048587, 262147, 1, 1048587, 262147, 2, 1048587, 262146, 2, 1048587, 262145, 2, 1048587, 327679, 2, 1048587, 262144, 2, 1048587, 327678, 2, 1048587, 327677, 2, 1048587, 327676, 2, 1048587, 327676, 1, 1048587, 327676, 0, 1048587, 327676, 65535, 1048587, 327676, 65534, 1048587, 589820, 65533, 1048587, 589821, 65533, 1441803, 589822, 65533, 1048587, 589823, 65533, 1441803, 524288, 65533, 1441803, 524289, 65533, 1048587, 524290, 65533, 1441803, 524291, 65533, 1441803, 524291, 65534, 1441803, 524291, 65535, 1441803, 524291, 0, 1441803, 524291, 1, 1441803, 524291, 2, 1048587, 524290, 2, 1048587, 524289, 2, 1048587, 524288, 2, 1048587, 589823, 2, 1048587, 589822, 2, 1048587, 589821, 2, 1048587, 589820, 2, 1048587, 589820, 1, 1048587, 589820, 0, 1048587, 589820, 65535, 1048587, 589820, 65534, 1048587, 589821, 65534, 1441803, 589821, 65535, 1441803, 589821, 0, 1441803, 589821, 1, 1441803, 589822, 1, 1441803, 589822, 0, 1441803, 589822, 65535, 1441803, 589822, 65534, 1441803, 589823, 65534, 1441803, 589823, 65535, 1441803, 589823, 0, 1441803, 589823, 1, 1441803, 524288, 0, 1441803, 524288, 65535, 1441803, 524288, 65534, 1441803, 524289, 65535, 1441803, 524289, 65534, 1441803, 524290, 65534, 1441803, 524289, 0, 1441803, 524290, 0, 1441803, 524290, 65535, 1441803, 524289, 1, 1441803, 524290, 1, 1441803, 524288, 1, 1441803)
+}
+metadata/_editor_floor_ = Vector3(0, 8, 0)
 
 [node name="QuantumCircuit" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, 0)
 
 [node name="Qubit" parent="QuantumCircuit" node_paths=PackedStringArray("slot") instance=ExtResource("2_mgg4g")]
 slot = NodePath("../QuantumGateSlot")
@@ -63,3 +56,17 @@ active = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 qubit_in = NodePath("../Qubit")
 active = true
+
+[node name="Lamps" type="Node3D" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Lamps"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 8, 0)
+light_energy = 10.0
+omni_range = 20.0
+omni_attenuation = 2.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lamps"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, 0)
+light_energy = 10.0
+omni_range = 20.0
+omni_attenuation = 2.0
