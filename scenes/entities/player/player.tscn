@@ -7,7 +7,8 @@
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
-collision_mask = 6
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_6uw3q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
