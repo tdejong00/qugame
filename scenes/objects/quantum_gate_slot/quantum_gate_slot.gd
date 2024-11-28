@@ -1,8 +1,8 @@
 ## Represents a slot within the quantum circuit, containing a quantum gate.
-class_name QuantumCircuitSlot extends Interactable
+class_name QuantumGateSlot extends Interactable
 
 ## Resource path for creating instances of the scene.
-const SCENE: PackedScene = preload("res://scenes/objects/circuit/quantum_gate_slot.tscn")
+const SCENE: PackedScene = preload("res://scenes/objects/quantum_gate_slot/quantum_gate_slot.tscn")
 
 ## The input qubit for this circuit slot.
 @export var qubit_in: Qubit
@@ -11,9 +11,9 @@ const SCENE: PackedScene = preload("res://scenes/objects/circuit/quantum_gate_sl
 ## The output qubit of this circuit slot.
 @export var qubit_out: Qubit
 ## The next slot of the circuit.
-@export var next_slot: QuantumCircuitSlot
+@export var next_slot: QuantumGateSlot
 
-@onready var base = $Base
+@onready var mesh_instance = $MeshInstance3D
 
 
 ## Instantiates a Qubit at the specified position.
@@ -27,8 +27,8 @@ static func create_qubit(position: Vector3, is_input: bool) -> Qubit:
 
 
 ## Instantiates a QuantumCircuitSlot at the specified position.
-static func create_slot(position: Vector3, qubit: Qubit) -> QuantumCircuitSlot:
-    var slot = QuantumCircuitSlot.SCENE.instantiate()
+static func create_slot(position: Vector3, qubit: Qubit) -> QuantumGateSlot:
+    var slot = QuantumGateSlot.SCENE.instantiate()
     slot.position = position + (2 * Vector3.RIGHT)
     slot.active = true
     slot.qubit_in = qubit
@@ -43,17 +43,18 @@ func _ready() -> void:
 
 
 ## Sets the quantum gate of this slot.
-func set_gate(gate_scene: PackedScene) -> void:
+func set_gate(gate_type: QuantumGate.QuantumGateType) -> void:
     # Create the quantum gate
     if quantum_gate != null:
         remove_child(quantum_gate)
-    quantum_gate = gate_scene.instantiate()
+    quantum_gate = QuantumGate.SCENE.instantiate()
+    quantum_gate.gate_type = gate_type
     add_child(quantum_gate)
-    base.visible = false
+    mesh_instance.visible = false
 
     # Create output qubit for gate
     if qubit_out == null:
-        qubit_out = create_qubit(base.position, false)
+        qubit_out = create_qubit(mesh_instance.position, false)
         add_child(qubit_out)
 
     # Add new empty slot
@@ -80,7 +81,7 @@ func clear() -> void:
     quantum_gate = null
     qubit_out = null
     next_slot = null
-    base.visible = true
+    mesh_instance.visible = true
 
 
 ## Propagates the input qubit through the circuit.
@@ -91,18 +92,9 @@ func propagate() -> void:
 
 ## Handles interaction by clearing or changing the quantum gate of this slot.
 func interact(key: String) -> void:
-    match key:
-        "F":
-            clear()
-        "1":
-            set_gate(IdentityGate.SCENE)
-        "2":
-            set_gate(HadamardGate.SCENE)
-        "3":
-            set_gate(PauliXGate.SCENE)
-        "4":
-            set_gate(PauliYGate.SCENE)
-        "5":
-            set_gate(PauliZGate.SCENE)
-        "6":
-            set_gate(Paulipi8Gate.SCENE)
+    if key == "F":
+        clear()
+    elif key.is_valid_int():
+        # Implicitly convert number input to gate type enum 
+        var gate_type: QuantumGate.QuantumGateType = key.to_int() - 1
+        set_gate(gate_type)

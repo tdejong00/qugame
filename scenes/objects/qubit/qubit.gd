@@ -19,12 +19,12 @@ const ROTATION_SPEED: float = 5.0
 ## Whether the bloch shpere is shown by default.
 @export var show_bloch_sphere: bool = true
 ## The quantum circuit slot which this qubit is an input for.
-@export var slot: QuantumCircuitSlot
+@export var slot: QuantumGateSlot
 
 ## The amplitude for the |0⟩ state.
-var alpha: Vector2 = Vector2.RIGHT
+@export var alpha: Vector2 = Vector2.RIGHT
 ## The amplitude for the |1⟩ state.
-var beta: Vector2 = Vector2.ZERO
+@export var beta: Vector2 = Vector2.ZERO
 ## The polar angle that determines the qubit's position on the Bloch sphere.
 var _theta: float = 0.0
 ## The azimuthal angle that represents the relative phase between α and β.
@@ -39,6 +39,9 @@ var _phi: float = 0.0
 func _ready() -> void:
     interaction_text = "Press [F] to toggle"
     bloch_sphere.visible = show_bloch_sphere
+    if is_gold:
+        bloch_sphere_arrow_head.material_override = GOLD_MATERIAL
+        bloch_sphere_arrow_body.material_override = GOLD_MATERIAL
     propagate()
 
 
@@ -55,14 +58,22 @@ func _to_string() -> String:
     return "|Ψ⟩ = " + str(alpha) + "|0⟩ " + str(beta) + "|1⟩"
 
 
+## Returns whether this qubit matches the other qubit.
+func equals(other: Qubit) -> bool:
+    if other == null:
+        return false
+    print(self, "?=", other)
+    return alpha.is_equal_approx(other.alpha) and beta.is_equal_approx(other.beta)
+
+
 ## Determines whether the qubit represents |0⟩.
 func is_zero() -> bool:
-    return alpha == Vector2.RIGHT && beta == Vector2.ZERO
+    return alpha.is_equal_approx(Vector2.RIGHT) and beta.is_zero_approx()
 
 
 ## Determines whether the qubit represents |1⟩.
 func is_one() -> bool:
-    return alpha == Vector2.ZERO && beta == Vector2.RIGHT
+    return alpha.is_zero_approx() and beta.is_equal_approx(Vector2.RIGHT)
 
 
 ## Updates the polar angle and relative phase of the qubit
