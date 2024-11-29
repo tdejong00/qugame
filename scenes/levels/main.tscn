@@ -36,11 +36,7 @@ metadata/_editor_floor_ = Vector3(0, -4, 0)
 
 [node name="Player" parent="." node_paths=PackedStringArray("input_qubit", "goal_qubit", "door") instance=ExtResource("2_s1drc")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -6, 0.5, 4)
-size_limit = 1
-allow_hadamard = false
-allow_pauli_y = false
-allow_pauli_z = false
-allow_pi_over_eight = false
+allowed_gates_mask = 18
 input_qubit = NodePath("../Objects/QuantumCircuit/InputQubit")
 goal_qubit = NodePath("../Objects/QuantumCircuit/GoalQubit")
 door = NodePath("../Objects/Door")
@@ -52,8 +48,7 @@ door = NodePath("../Objects/Door")
 [node name="GoalQubit" parent="Objects/QuantumCircuit" instance=ExtResource("2_mgg4g")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -6, 0.5, -6)
 is_gold = true
-alpha = Vector2(0, 0)
-beta = Vector2(1, 0)
+initial_state = 3
 
 [node name="InputQubit" parent="Objects/QuantumCircuit" node_paths=PackedStringArray("slot") instance=ExtResource("2_mgg4g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, 0)
