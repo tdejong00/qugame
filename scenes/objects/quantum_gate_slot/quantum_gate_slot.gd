@@ -15,6 +15,8 @@ const SCENE: PackedScene = preload("res://scenes/objects/quantum_gate_slot/quant
 
 @onready var mesh_instance = $MeshInstance3D
 
+var _player: Player
+
 
 ## Instantiates a Qubit at the specified position.
 static func create_qubit(position: Vector3, is_input: bool) -> Qubit:
@@ -40,15 +42,16 @@ static func create_slot(position: Vector3, qubit: Qubit) -> QuantumGateSlot:
 
 func _ready() -> void:
     interaction_text = "Press [F] to clear"
+    _player = get_tree().get_first_node_in_group("player")
 
 
 ## Sets the quantum gate of this slot.
-func set_gate(gate_type: QuantumGate.QuantumGateType) -> void:
+func set_gate(type: QuantumGate.Type) -> void:
     # Create the quantum gate
     if quantum_gate != null:
         remove_child(quantum_gate)
     quantum_gate = QuantumGate.SCENE.instantiate()
-    quantum_gate.gate_type = gate_type
+    quantum_gate.type = type
     add_child(quantum_gate)
     mesh_instance.visible = false
 
@@ -68,9 +71,8 @@ func set_gate(gate_type: QuantumGate.QuantumGateType) -> void:
 
 ## Determines whether an empty slot can be added based on the size restriction.
 func can_add_empty_slot():
-    var player: Player = get_tree().get_first_node_in_group("player")
     var slots = get_tree().get_nodes_in_group("circuit")
-    return next_slot == null and slots.size() < player.size_limit
+    return next_slot == null and slots.size() < _player.size_limit
 
 
 ## Clears the quantum gate slot and all following slots.
@@ -96,13 +98,12 @@ func interact(key: String) -> void:
         clear()
     elif key.is_valid_int():
         # Implicitly convert number input to gate type enum 
-        var gate_type: QuantumGate.QuantumGateType = key.to_int() - 1
-        set_gate(gate_type)
+        var type: QuantumGate.Type = key.to_int() - 1
+            set_gate(type)
 
     # Check if goal state reached
-    var player: Player = get_tree().get_first_node_in_group("player")
-    if player.goal_qubit.equals(qubit_out):
-        player.ui.notify("Level complete!")
-        player.door.open()
+    if _player.goal_qubit.equals(qubit_out):
+        _player.ui.notify("Level complete!")
+        _player.door.open()
     else:
-        player.door.close()
+        _player.door.close()

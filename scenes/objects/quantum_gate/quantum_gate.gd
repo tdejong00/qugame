@@ -2,20 +2,22 @@
 class_name QuantumGate extends Node3D
 
 ## The possible quantum gate types.
-enum QuantumGateType {
+enum Type {
     IDENTITY,
     HADAMARD,
     PAULI_X,
     PAULI_Y,
     PAULI_Z,
-    PI_OVER_8,
+    ROTATE_X,
+    ROTATE_Y,
+    ROTATE_Z
 }
 
 ## Resource path for creating instances of the scene.
 const SCENE: PackedScene = preload("res://scenes/objects/quantum_gate/quantum_gate.tscn")
 
 ## The type of this quantum gate.
-@export var gate_type: QuantumGateType
+@export var type: Type
 
 ## The mesh instance holding a TextMesh.
 @onready var mesh_instance: MeshInstance3D = $Base/TextMeshInstance
@@ -24,51 +26,80 @@ const SCENE: PackedScene = preload("res://scenes/objects/quantum_gate/quantum_ga
 var _matrix: PackedVector2Array
 
 
-## Initialize text mesh and matrix
-func _ready() -> void:
-    var text_mesh: TextMesh = mesh_instance.mesh
+## Returns a string representation of the quantum gate type.
+static func type_to_string(type: Type) -> String:
+    match type:
+        Type.IDENTITY:
+            return "I"
+        Type.HADAMARD:
+            return "H"
+        Type.PAULI_X:
+            return "X"
+        Type.PAULI_Y:
+            return "Y"
+        Type.PAULI_Z:
+            return "Z"
+        Type.ROTATE_X:
+            return "Rx"
+        Type.ROTATE_Y:
+            return "Ry"
+        Type.ROTATE_Z:
+            return "Rz​"
+        _:
+            return "?"
 
-    match gate_type:
-        QuantumGateType.IDENTITY:
-            text_mesh.text = "I"
-            _matrix = [
-                Vector2(1.0, 0.0), Vector2(0.0, 0.0),
-                Vector2(0.0, 0.0), Vector2(1.0, 0.0)
+
+## Gets the matrix representing the quantum gate type.
+static func type_to_matrix(type: Type) -> PackedVector2Array:
+    match type:
+        Type.HADAMARD:
+            return [
+                Vector2(1 / sqrt(2), 0.0), Vector2(1 / sqrt(2), 0.0),
+                Vector2(1 / sqrt(2), 0.0), Vector2(-1 / sqrt(2), 0.0)
             ]
-        QuantumGateType.HADAMARD:
-            text_mesh.text = "H"
-            var sqrt_2_inv = 1.0 / sqrt(2.0)
-            _matrix = [
-                Vector2(sqrt_2_inv, 0.0), Vector2(sqrt_2_inv, 0.0),
-                Vector2(sqrt_2_inv, 0.0), Vector2(-sqrt_2_inv, 0.0)
-            ]
-        QuantumGateType.PAULI_X:
-            text_mesh.text = "X"
-            _matrix = [
+        Type.PAULI_X:
+            return [
                 Vector2(0.0, 0.0), Vector2(1.0, 0.0),
                 Vector2(1.0, 0.0), Vector2(0.0, 0.0)
             ]
-        QuantumGateType.PAULI_Y:
-            text_mesh.text = "Y"
-            _matrix = [
+        Type.PAULI_Y:
+            return [
                 Vector2(0.0, 0.0), Vector2(0.0, -1.0),
                 Vector2(0.0, 1.0), Vector2(0.0, 0.0)
             ]
-        QuantumGateType.PAULI_Z:
-            text_mesh.text = "Z"
-            _matrix = [
+        Type.PAULI_Z:
+            return [
                 Vector2(1.0, 0.0), Vector2(0.0, 0.0),
                 Vector2(0.0, 0.0), Vector2(-1.0, 0.0)
             ]
-        QuantumGateType.PI_OVER_8:
-            text_mesh.text = "T"
-            ## Here we use Euler's formula to decompose e^iπ/4 into real
-            ## and imaginary parts, both of value 1 over square root of 2.
-            var sqrt_2_inv = 1.0 / sqrt(2.0)
-            _matrix = [
-                Vector2(1.0, 0.0), Vector2(0.0, 0.0),
-                Vector2(0.0, 0.0), Vector2(sqrt_2_inv, sqrt_2_inv)
+        Type.ROTATE_X:
+            return [
+                Vector2(cos(PI / 8), 0), Vector2(0, -sin(PI / 8)),
+                Vector2(0, -sin(PI / 8)), Vector2(cos(PI / 8), 0)
             ]
+        Type.ROTATE_Y:
+            return [
+                Vector2(cos(PI / 8), 0), Vector2(-sin(PI / 8), 0),
+                Vector2(sin(PI / 8), 0), Vector2(cos(PI / 8), 0)
+            ]
+        Type.ROTATE_Z:
+            return [
+                Vector2(1, 0), Vector2(0, 0),
+                Vector2(0, 0), Vector2(1 / sqrt(2), 1 / sqrt(2))
+            ]
+        _:
+            return [
+                Vector2(1.0, 0.0), Vector2(0.0, 0.0),
+                Vector2(0.0, 0.0), Vector2(1.0, 0.0)
+            ]
+
+
+
+## Initialize text mesh and matrix
+func _ready() -> void:
+    var text_mesh: TextMesh = mesh_instance.mesh
+    text_mesh.text = type_to_string(type)
+    _matrix = type_to_matrix(type)
 
 
 ## Applies the quantum gate to the input qubit and propagates the result to the output qubit.
