@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=4 uid="uid://o2xud88mln6v"]
 
-[ext_resource type="Script" path="res://scenes/objects/door.gd" id="1_2yfyb"]
+[ext_resource type="Script" path="res://scenes/objects/door/door.gd" id="1_2yfyb"]
 [ext_resource type="Texture2D" uid="uid://dr2i3srnjsn3p" path="res://addons/kaykit_prototype_bits/Assets/gltf/prototypebits_texture.png" id="2_sq6ep"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fule2"]

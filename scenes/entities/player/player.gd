@@ -121,7 +121,6 @@ func _input(event) -> void:
 
 ## Determines whether the gate is allowed using the allowed gates mask.
 func is_gate_allowed(type: QuantumGate.Type) -> bool:
-    print(allowed_gates_mask, ",", type,  ",", 2 ** type)
     return allowed_gates_mask & (2 ** type)
 
 

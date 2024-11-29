@@ -37,8 +37,9 @@ func _ready() -> void:
         buttons_container.add_child(button)
 
 
-func disable_button(i: int) -> void:
-    buttons[i].disabled = true
+## Enables/disables the gate button.
+func toggle_button(i: int):
+    buttons[i].disabled = !buttons[i].disabled
 
 
 func _on_timer_timeout() -> void:

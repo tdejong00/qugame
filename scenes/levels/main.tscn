@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bsi2sm86hkhor" path="res://scenes/objects/qubit/qubit.tscn" id="2_mgg4g"]
 [ext_resource type="PackedScene" uid="uid://ckk03qsadcwlw" path="res://scenes/entities/player/player.tscn" id="2_s1drc"]
-[ext_resource type="PackedScene" uid="uid://o2xud88mln6v" path="res://scenes/objects/door.tscn" id="3_444qi"]
+[ext_resource type="PackedScene" uid="uid://o2xud88mln6v" path="res://scenes/objects/door/door.tscn" id="3_444qi"]
 [ext_resource type="PackedScene" uid="uid://65xnlas5jt2i" path="res://scenes/objects/quantum_gate_slot/quantum_gate_slot.tscn" id="3_ynpfr"]
 [ext_resource type="MeshLibrary" uid="uid://d555b7hr33n7" path="res://assets/tiles.tres" id="4_1p5pf"]
 
