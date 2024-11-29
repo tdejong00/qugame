@@ -33,7 +33,7 @@ const ROTATION_SPEED: float = 5.0
 @export var is_gold: bool = false
 ## The quantum circuit slot which this qubit is an input for.
 @export var slot: QuantumGateSlot
-## The initial state of the qubit, defaults to ZERO
+## The initial state of the qubit, defaults to ZERO.
 @export var initial_state: BasisState = BasisState.ZERO
 
 ## The amplitude for the |0⟩ state.

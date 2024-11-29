@@ -99,6 +99,7 @@ func interact(key: String) -> void:
     elif key.is_valid_int():
         # Implicitly convert number input to gate type enum 
         var type: QuantumGate.Type = key.to_int() - 1
+        if _player.is_gate_allowed(type):
             set_gate(type)
 
     # Check if goal state reached
