@@ -4,9 +4,9 @@ class_name Player extends CharacterBody3D
 
 @export_group("Movement")
 ## Speed at which the player moves while walking.
-@export var walk_velocity: float = 3.0
+@export var walk_velocity: float = 4.0
 ## Speed at which the player moves while sprinting.
-@export var sprint_velocity: float = 5.0
+@export var sprint_velocity: float = 6.0
 ## Upward velocity imparted to the player when jumping.
 @export var jump_velocity: float = 4.0
 ## Gravity force applied to the player. This affects how quickly the player
@@ -15,9 +15,9 @@ class_name Player extends CharacterBody3D
 
 @export_group("Camera")
 ## Sensitivity of the camera to mouse movement.
-@export var camera_sensitivity: float = 1.0
+@export var camera_sensitivity: float = 1.2
 ## Whether the camera bobbing effect is enabled.
-@export var enable_bobbing: bool = false
+@export var enable_bobbing: bool = true
 ## Frequency at which the camera bobbing effect occurs while the player is moving.
 @export var bob_frequency: float = 2.0
 ## Amplitude of the camera bobbing effect, which determines how 
