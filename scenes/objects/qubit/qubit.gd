@@ -10,6 +10,14 @@
 ## - φ (phi): The azimuthal angle that represents the relative phase between α and β.
 class_name Qubit extends Interactable
 
+## The possible initial basis states.
+enum BasisState {
+    ZERO,
+    ONE,
+    PLUS,
+    MINUS
+}
+
 ## Resource path for creating instances of the Qubit scene.
 const SCENE: PackedScene = preload("res://scenes/objects/qubit/qubit.tscn")
 
@@ -25,11 +33,13 @@ const ROTATION_SPEED: float = 5.0
 @export var is_gold: bool = false
 ## The quantum circuit slot which this qubit is an input for.
 @export var slot: QuantumGateSlot
+## The initial state of the qubit, defaults to ZERO
+@export var initial_state: BasisState = BasisState.ZERO
 
 ## The amplitude for the |0⟩ state.
-@export var alpha: Vector2 = Vector2.RIGHT
+var alpha: Vector2 = Vector2.RIGHT
 ## The amplitude for the |1⟩ state.
-@export var beta: Vector2 = Vector2.ZERO
+var beta: Vector2 = Vector2.ZERO
 ## The polar angle that determines the qubit's position on the Bloch sphere.
 var _theta: float = 0.0
 ## The azimuthal angle that represents the relative phase between α and β.
@@ -47,6 +57,19 @@ func _ready() -> void:
     if is_gold:
         bloch_sphere_arrow_head.material_override = GOLD_MATERIAL
         bloch_sphere_arrow_body.material_override = GOLD_MATERIAL
+    match initial_state:
+        BasisState.ZERO:
+            alpha = Vector2(1, 0)
+            beta = Vector2(0, 0)
+        BasisState.ONE:
+            alpha = Vector2(0, 0)
+            beta = Vector2(1, 0)
+        BasisState.PLUS:
+            alpha = Vector2(1 / sqrt(2), 0)
+            beta = Vector2(1 / sqrt(2), 0)
+        BasisState.MINUS:
+            alpha = Vector2(1 / sqrt(2), 0)
+            beta = Vector2(-1 / sqrt(2), 0)
     propagate()
 
 
@@ -65,10 +88,7 @@ func _to_string() -> String:
 
 ## Returns whether this qubit matches the other qubit.
 func equals(other: Qubit) -> bool:
-    if other == null:
-        return false
-    print(self, "?=", other)
-    return alpha.is_equal_approx(other.alpha) and beta.is_equal_approx(other.beta)
+    return other != null and alpha.is_equal_approx(other.alpha) and beta.is_equal_approx(other.beta)
 
 
 ## Determines whether the qubit represents |0⟩.
