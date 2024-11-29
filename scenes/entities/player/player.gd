@@ -45,6 +45,8 @@ class_name Player extends CharacterBody3D
 @export var input_qubit: Qubit
 ## The qubit representing the goal state of the current level.
 @export var goal_qubit: Qubit
+## Door.
+@export var door: Door
 
 ## Current interactable object.
 var interactable: Interactable

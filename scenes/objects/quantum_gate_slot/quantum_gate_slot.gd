@@ -103,3 +103,6 @@ func interact(key: String) -> void:
     var player: Player = get_tree().get_first_node_in_group("player")
     if player.goal_qubit.equals(qubit_out):
         player.ui.notify("Level complete!")
+        player.door.open()
+    else:
+        player.door.close()
