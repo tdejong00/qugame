@@ -7,6 +7,7 @@ class_name UI extends CanvasLayer
 @onready var interaction_label: Label = $Control/MarginContainer/VBoxContainer/InteractionContainer/InteractionLabel
 @onready var buttons_container: HBoxContainer = $Control/MarginContainer/VBoxContainer/ButtonsContainer
 @onready var timer: Timer = $Timer
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var buttons: Array[Button]
 

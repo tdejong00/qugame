@@ -6,7 +6,7 @@ class_name Interactable extends Node3D
 ## interaction_radius of the interactable area.
 @export_range(0.0, 100.0) var interaction_radius: float = 2.0
 ## Text which will be displayed while interactable.
-@export var interaction_text: String = "Press [F] to interact."
+var interaction_text: String = "Press [F] to interact."
 
 var area: Area3D
 var collision_shape: CollisionShape3D

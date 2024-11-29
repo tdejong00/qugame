@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://e2dv2absvtoc"]
+
+[ext_resource type="Script" path="res://scenes/objects/teleporter/teleporter.gd" id="1_73xps"]
+[ext_resource type="PackedScene" uid="uid://cu6seb3b2bva0" path="res://addons/kaykit_space_base_bits/Assets/gltf/landingpad_large.gltf" id="1_477ah"]
+
+[node name="Teleporter" type="Node3D"]
+script = ExtResource("1_73xps")
+
+[node name="LandingPad" parent="." instance=ExtResource("1_477ah")]
