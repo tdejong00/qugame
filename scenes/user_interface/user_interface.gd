@@ -2,10 +2,9 @@
 class_name UserInterface extends CanvasLayer
 
 ## The delay between typing characters of the dialogue.
-const TYPING_DELAY: float = 0.04
-
+@export var typing_delay: float = 0.04
 ## The delay after the dialogue has finished.
-const DIALOGUE_DELAY: float = 2.0
+@export var dialogue_delay: float = 2.5
 
 var _is_displaying_dialogue: bool = false
 var _stop_displaying_dialogue: bool = false
@@ -14,13 +13,18 @@ var _stop_displaying_dialogue: bool = false
 @onready var _buttons_container: HBoxContainer = $Control/MarginContainer/VBoxContainer/ButtonsContainer
 @onready var _dialogue_label: Label = $Control/MarginContainer/VBoxContainer/DialogueContainer/DialogueLabel
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
+@onready var _dialogue_timer: Timer = $DialogueTimer
 
 
 func _ready() -> void:
+    _dialogue_timer.wait_time = dialogue_delay
+    _dialogue_timer.timeout.connect(_on_timeout)
+
     SignalBus.show_hotbar.connect(_on_show_hotbar)
     SignalBus.hide_hotbar.connect(_on_hide_hotbar)
     SignalBus.display_dialogue.connect(_on_display_dialogue)
-    SignalBus.interaction_label_changed.connect(_on_interaction_label_changed)
+    SignalBus.dialogue_skipped.connect(_on_dialogue_skipped)
+    SignalBus.change_interaction_label.connect(_on_interaction_label_changed)
     SignalBus.restrictions_updated.connect(_on_restrictions_updated)
     SignalBus.fade_out.connect(_on_fade_out)
 
@@ -75,10 +79,11 @@ func _on_restrictions_updated() -> void:
 ## prematurely.
 func _on_display_dialogue(text: String) -> void:
     _stop_displaying_dialogue = _is_displaying_dialogue
+    _dialogue_timer.stop()
 
-    # Wait for displaying dialogue to stop
+    # Wait for current dialogue to finish
     while _is_displaying_dialogue:
-        await get_tree().create_timer(TYPING_DELAY).timeout
+        await get_tree().create_timer(typing_delay).timeout
 
     _is_displaying_dialogue = true
 
@@ -86,23 +91,31 @@ func _on_display_dialogue(text: String) -> void:
     for i in range(text.length()):
         # Stop the dialogue when a new dialogue is issued
         if _stop_displaying_dialogue:
-            _stop_displaying_dialogue = false
             _is_displaying_dialogue = false
-            return
-
-        # Add next character of dialogue
-        _dialogue_label.text += text[i]
-        await get_tree().create_timer(TYPING_DELAY).timeout
+            _stop_displaying_dialogue = false
+            _dialogue_label.text = text
+            break
+        else:
+            # Add next character of dialogue
+            _dialogue_label.text += text[i]
+            await get_tree().create_timer(typing_delay).timeout
 
     _is_displaying_dialogue = false
     _stop_displaying_dialogue = false
+    _dialogue_timer.start()
 
-    await get_tree().create_timer(DIALOGUE_DELAY).timeout
-    # FIXME: it is possible that the dialogue gets cleared
-    #        too early, when this message was ended prematurely
-    #        and the next message ended before this timer ran out.
-    if not _is_displaying_dialogue:
-        _dialogue_label.text = ""
+
+## Clears the dialogue label.
+func _on_timeout() -> void:
+    _dialogue_label.text = ""
+    SignalBus.dialogue_finished.emit()
+
+
+## Skips the current dialogue.
+func _on_dialogue_skipped() -> void:
+    if _is_displaying_dialogue:
+        _stop_displaying_dialogue = true
+    else:
         SignalBus.dialogue_finished.emit()
 
 

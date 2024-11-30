@@ -61,7 +61,6 @@ func _ready() -> void:
         bloch_sphere_arrow_head.material_override = GOLD_MATERIAL
         bloch_sphere_arrow_body.material_override = GOLD_MATERIAL
     set_state(initial_state)
-    propagate()
 
 
 func _physics_process(delta: float) -> void:
@@ -94,7 +93,7 @@ func is_one() -> bool:
 
 ## Sets the state of the qubit to one of the predefined basis states.
 func set_state(basis_state: BasisState) -> void:
-    match initial_state:
+    match basis_state:
         BasisState.ZERO:
             alpha = Vector2(1, 0)
             beta = Vector2(0, 0)
@@ -113,12 +112,11 @@ func set_state(basis_state: BasisState) -> void:
         BasisState.MINUS_IMAGINARY:
             alpha = Vector2(1 / sqrt(2), 0)
             beta = Vector2(0, -1 / sqrt(2))
-            pass
-
+    propagate()
 
 ## Updates the polar angle and relative phase of the qubit
 ## and propagates the result to the next quantum gate.
-func propagate() -> Qubit:
+func propagate() -> void:
     print(self)
 
     # Set theta angle
@@ -135,7 +133,15 @@ func propagate() -> Qubit:
         _phi += PI * 2
 
     if next_slot != null:
-        return next_slot.propagate()
+        next_slot.propagate()
+    else:
+        SignalBus.circuit_changed.emit()
+
+
+## Evaluates the circuit to a single qubit.
+func evaluate() -> Qubit:
+    if next_slot != null:
+        return next_slot.evaluate()
     else:
         return self
 

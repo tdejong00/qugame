@@ -46,11 +46,11 @@ func _physics_process(delta: float) -> void:
     # Determine if looking at interactable object
     if not _ray_cast.is_colliding() or _ray_cast.get_collider().get_parent() is not Interactable:
         interactable = null
-        SignalBus.interaction_label_changed.emit("")
+        SignalBus.change_interaction_label.emit("")
     else:
         var collider = _ray_cast.get_collider().get_parent()
         interactable = collider
-        SignalBus.interaction_label_changed.emit(collider.interaction_text)
+        SignalBus.change_interaction_label.emit(collider.interaction_text)
 
     # Handle gravity
     if not is_on_floor():
@@ -92,6 +92,9 @@ func _input(event) -> void:
         # Handle interactions
         if Input.is_action_just_pressed("interact") and interactable != null:
             interactable.interact(event.as_text_key_label())
+
+        if Input.is_action_just_pressed("ui_accept"):
+            SignalBus.dialogue_skipped.emit()
 
         # Quit game
         if Input.is_action_just_pressed("quit"):

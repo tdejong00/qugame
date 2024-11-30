@@ -1,6 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://5ye6f6br2bts"]
+[gd_scene load_steps=7 format=3 uid="uid://5ye6f6br2bts"]
 
 [ext_resource type="Script" path="res://scenes/user_interface/user_interface.gd" id="1_w7rwt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ipvqo"]
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_aeeye"]
 length = 0.001
@@ -104,13 +111,15 @@ theme_override_font_sizes/font_size = 24
 
 [node name="DialogueContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 8
 
 [node name="DialogueLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/DialogueContainer"]
 layout_mode = 2
-size_flags_horizontal = 6
-theme_override_font_sizes/font_size = 24
+size_flags_horizontal = 3
+label_settings = SubResource("LabelSettings_ipvqo")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="ButtonsContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -122,3 +131,5 @@ libraries = {
 "": SubResource("AnimationLibrary_gvvnj")
 }
 autoplay = "fade_in"
+
+[node name="DialogueTimer" type="Timer" parent="."]

@@ -15,5 +15,5 @@ func is_gate_allowed(type: QuantumGate.Type) -> bool:
 
 
 ## Updates the allowed gates mask to allow the specified gate.
-func allowe_gate(type: QuantumGate.Type) -> void:
+func allow_gate(type: QuantumGate.Type) -> void:
     _allowed_gates_mask |= (2 ** type)

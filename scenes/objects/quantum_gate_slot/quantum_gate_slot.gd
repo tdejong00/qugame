@@ -84,12 +84,19 @@ func clear() -> void:
 
 
 ## Propagates the input qubit through the circuit.
-func propagate() -> Qubit:
+func propagate() -> void:
     if quantum_gate != null and qubit_out != null:
-        return quantum_gate.propagate(qubit_in, qubit_out)
+        quantum_gate.propagate(qubit_in, qubit_out)
+    else:
+        SignalBus.circuit_changed.emit()
+
+
+## Evaluates the circuit to a single qubit.
+func evaluate() -> Qubit:
+    if qubit_out != null:
+        return qubit_out
     else:
         return qubit_in
-
 
 ## Handles interaction by clearing or changing the quantum gate of this slot.
 func interact(key: String) -> void:
@@ -101,4 +108,3 @@ func interact(key: String) -> void:
         var type: QuantumGate.Type = key.to_int() - 1
         if LevelRestrictions.is_gate_allowed(type):
             set_gate(type)
-    SignalBus.circuit_changed.emit()

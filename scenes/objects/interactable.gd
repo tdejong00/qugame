@@ -5,8 +5,6 @@ class_name Interactable extends Node3D
 @export var active: bool = false : set = _set_active
 ## Interaction radius of the interactable _area.
 @export_range(0.0, 100.0) var interaction_radius: float = 2.0
-## Whether the level should be advanced when interacting with this interactable.
-@export var advances_level: bool = false
 
 ## Text which will be displayed while interactable.
 var interaction_text: String = "Press [F] to interact."
@@ -28,9 +26,7 @@ func _init() -> void:
 
 ## Called when the interactable object is activated.
 func interact(key: String) -> void:
-    if advances_level:
-        advances_level = false
-        SignalBus.advance_level.emit()
+    pass
 
 
 ## Activates or de-activates the interactable area.
