@@ -2,32 +2,28 @@
 class_name Interactable extends Node3D
 
 ## Whether the interactable can be interacted with.
-@export var active: bool = false
-## Interaction radius of the interactable area.
+@export var active: bool = false : set = _set_active
+## Interaction radius of the interactable _area.
 @export_range(0.0, 100.0) var interaction_radius: float = 2.0
 ## Whether the level should be advanced when interacting with this interactable.
 @export var advances_level: bool = false
+
 ## Text which will be displayed while interactable.
 var interaction_text: String = "Press [F] to interact."
 
-var area: Area3D
-var collision_shape: CollisionShape3D
+var _area: Area3D
+var _collision_shape: CollisionShape3D
 
 
-func _enter_tree() -> void:
-    if not active:
-        return
-
+func _init() -> void:
     # Create Area3D node
-    area = Area3D.new()
-    add_child(area)
+    _area = Area3D.new()
 
     # Create spherical CollisionShape3D node with specified radius
     var shape = SphereShape3D.new()
     shape.radius = interaction_radius
-    collision_shape = CollisionShape3D.new()
-    collision_shape.shape = shape
-    area.add_child(collision_shape)
+    _collision_shape = CollisionShape3D.new()
+    _collision_shape.shape = shape
 
 
 ## Called when the interactable object is activated.
@@ -35,3 +31,13 @@ func interact(key: String) -> void:
     if advances_level:
         advances_level = false
         SignalBus.advance_level.emit()
+
+
+## Activates or de-activates the interactable area.
+func _set_active(value: bool) -> void:
+    if (value):
+        add_child(_area)
+        _area.add_child(_collision_shape)
+    else:
+        _area.remove_child(_collision_shape)
+        remove_child(_area)

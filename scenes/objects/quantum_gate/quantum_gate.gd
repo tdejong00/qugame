@@ -19,11 +19,18 @@ const SCENE: PackedScene = preload("res://scenes/objects/quantum_gate/quantum_ga
 ## The type of this quantum gate.
 @export var type: Type
 
-## The mesh instance holding a TextMesh.
-@onready var mesh_instance: MeshInstance3D = $Base/TextMeshInstance
-
 ## A 2x2 matrix representing the quantum gate's transformation.
 var _matrix: PackedVector2Array
+
+## The mesh instance holding a TextMesh.
+@onready var _mesh_instance: MeshInstance3D = $Base/TextMeshInstance
+
+
+## Initialize text mesh and matrix
+func _ready() -> void:
+    var text_mesh: TextMesh = _mesh_instance.mesh
+    text_mesh.text = type_to_string(type)
+    _matrix = type_to_matrix(type)
 
 
 ## Returns a string representation of the quantum gate type.
@@ -94,16 +101,8 @@ static func type_to_matrix(type: Type) -> PackedVector2Array:
             ]
 
 
-
-## Initialize text mesh and matrix
-func _ready() -> void:
-    var text_mesh: TextMesh = mesh_instance.mesh
-    text_mesh.text = type_to_string(type)
-    _matrix = type_to_matrix(type)
-
-
 ## Applies the quantum gate to the input qubit and propagates the result to the output qubit.
-func propagate(qubit_in: Qubit, qubit_out) -> void:
+func propagate(qubit_in: Qubit, qubit_out) -> Qubit:
     qubit_out.alpha = Vector2(
         # Real part of new α
         _matrix[0].x * qubit_in.alpha.x - _matrix[0].y * qubit_in.alpha.y + _matrix[1].x * qubit_in.beta.x - _matrix[1].y * qubit_in.beta.y,
@@ -116,4 +115,4 @@ func propagate(qubit_in: Qubit, qubit_out) -> void:
         # Imaginary part of new β
         _matrix[2].x * qubit_in.alpha.y + _matrix[2].y * qubit_in.alpha.x + _matrix[3].x * qubit_in.beta.y + _matrix[3].y * qubit_in.beta.x
     )
-    qubit_out.propagate()
+    return qubit_out.propagate()

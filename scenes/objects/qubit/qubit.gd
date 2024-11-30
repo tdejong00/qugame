@@ -31,8 +31,8 @@ const ROTATION_SPEED: float = 5.0
 @export var show_bloch_sphere: bool = true
 ## Whether the qubit represents the goal state of the level.
 @export var is_gold: bool = false
-## The quantum circuit slot which this qubit is an input for.
-@export var slot: QuantumGateSlot
+## The next quantum circuit slot which this qubit is an input for.
+@export var next_slot: QuantumGateSlot
 ## The initial state of the qubit, defaults to ZERO.
 @export var initial_state: BasisState = BasisState.ZERO
 
@@ -40,6 +40,7 @@ const ROTATION_SPEED: float = 5.0
 var alpha: Vector2 = Vector2.RIGHT
 ## The amplitude for the |1⟩ state.
 var beta: Vector2 = Vector2.ZERO
+
 ## The polar angle that determines the qubit's position on the Bloch sphere.
 var _theta: float = 0.0
 ## The azimuthal angle that represents the relative phase between α and β.
@@ -103,7 +104,7 @@ func is_one() -> bool:
 
 ## Updates the polar angle and relative phase of the qubit
 ## and propagates the result to the next quantum gate.
-func propagate() -> void:
+func propagate() -> Qubit:
     print(self)
 
     # Set theta angle
@@ -119,14 +120,15 @@ func propagate() -> void:
     if _phi < 0:
         _phi += PI * 2
 
-    if slot != null:
-        slot.propagate()
+    if next_slot != null:
+        return next_slot.propagate()
+    else:
+        return self
 
 
 ## Toggles between basis states.
 func interact(key: String) -> void:
     super.interact(key)
-
     if key == "F":
         assert(is_zero() || is_one())
         alpha.x = 0 ** alpha.x

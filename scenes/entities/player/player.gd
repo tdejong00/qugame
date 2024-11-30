@@ -24,37 +24,19 @@ class_name Player extends CharacterBody3D
 ## much the camera moves up and down while the player is walking.
 @export var bob_amplitude: float = 0.04
 
-@export_group("Restrictions")
-## Maximum amount of allowed gates in the circuit.
-@export var size_limit: int = 1
-## Each bit of the mask represents whether that type is allowed.
-## For example: the bit string `00010010` (`18`) corresponds to
-## the Z and H gates being allowed.
-@export var allowed_gates_mask: int
-
-@export_group("Level")
-## The input qubit of the current circuit.
-@export var input_qubit: Qubit
-## The qubit representing the goal state of the current level.
-@export var goal_qubit: Qubit
-## Door.
-@export var door: Door
-
 ## Current interactable object.
 var interactable: Interactable
 
 var _bob_t: float = 0.0
 
-@onready var player: CharacterBody3D = $"."
-@onready var head: Marker3D = $Marker3D
-@onready var camera: Camera3D = $Marker3D/Camera3D
-@onready var ray_cast: RayCast3D = $Marker3D/Camera3D/RayCast3D
-@onready var ui: UI = $UserInterface
+@onready var _head: Marker3D = $Marker3D
+@onready var _camera: Camera3D = $Marker3D/Camera3D
+@onready var _ray_cast: RayCast3D = $Marker3D/Camera3D/RayCast3D
 
 
 func _ready() -> void:
     # Stop ray cast from hitting player
-    ray_cast.add_exception(self)
+    _ray_cast.add_exception(self)
 
     # Capture mouse
     Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -62,15 +44,15 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
     # Determine if looking at interactable object
-    if not ray_cast.is_colliding() or ray_cast.get_collider().get_parent() is not Interactable:
+    if not _ray_cast.is_colliding() or _ray_cast.get_collider().get_parent() is not Interactable:
         interactable = null
-        ui.interaction_label.text = ""
+        SignalBus.interaction_label_changed.emit("")
     else:
-        var collider = ray_cast.get_collider().get_parent()
+        var collider = _ray_cast.get_collider().get_parent()
         interactable = collider
-        ui.interaction_label.text = collider.interaction_text
+        SignalBus.interaction_label_changed.emit(collider.interaction_text)
 
-    # Handle _gravity
+    # Handle gravity
     if not is_on_floor():
         velocity.y -= gravity * delta
 
@@ -100,7 +82,7 @@ func _physics_process(delta: float) -> void:
     # Handle view bobbing
     if enable_bobbing and is_on_floor():
         _bob_t += velocity.length() * delta
-        bob_camera(_bob_t)
+        _bob_camera(_bob_t)
 
     move_and_slide()
 
@@ -117,23 +99,20 @@ func _input(event) -> void:
 
     # Handle camera movement
     if event is InputEventMouseMotion:
-        rotate_camera(event)
-
-## Determines whether the gate is allowed using the allowed gates mask.
-func is_gate_allowed(type: QuantumGate.Type) -> bool:
-    return allowed_gates_mask & (2 ** type)
+        _rotate_camera(event)
 
 
 ## Rotates the camera using the relative position of the mouse.
-func rotate_camera(event: InputEventMouseMotion) -> void:
-    player.rotation.y -= event.relative.x * 0.001 * camera_sensitivity
-    camera.rotation.x -= event.relative.y * 0.001 * camera_sensitivity
-    camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+func _rotate_camera(event: InputEventMouseMotion) -> void:
+    rotation.y -= event.relative.x * 0.001 * camera_sensitivity
+    _camera.rotation.x -= event.relative.y * 0.001 * camera_sensitivity
+    _camera.rotation.x = clamp(_camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 
 ## Applies a bobbing effect to the camera to simulate head movement while walking.
-func bob_camera(t: float) -> void:
+## FIXME: use animation instead
+func _bob_camera(t: float) -> void:
     var v = Vector3.ZERO
     v.y = sin(t * bob_frequency) * bob_amplitude
     v.x = cos(t * bob_frequency / 2) * bob_amplitude
-    camera.transform.origin = v
+    _camera.transform.origin = v
