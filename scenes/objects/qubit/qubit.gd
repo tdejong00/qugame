@@ -125,6 +125,8 @@ func propagate() -> void:
 
 ## Toggles between basis states.
 func interact(key: String) -> void:
+    super.interact(key)
+
     if key == "F":
         assert(is_zero() || is_one())
         alpha.x = 0 ** alpha.x

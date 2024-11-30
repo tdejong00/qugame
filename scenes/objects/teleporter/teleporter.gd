@@ -19,6 +19,8 @@ func _on_fade_out_finished(anim_name: String) -> void:
 
 ## Handles interaction by changing to the specified scene.
 func interact(key: String) -> void:
+    super.interact(key)
+
     if key == "F":
         _player.ui.animation_player.play("fade_out")
         _player.ui.animation_player.connect("animation_finished", _on_fade_out_finished)

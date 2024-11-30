@@ -94,6 +94,8 @@ func propagate() -> void:
 
 ## Handles interaction by clearing or changing the quantum gate of this slot.
 func interact(key: String) -> void:
+    super.interact(key)
+
     if key == "F":
         clear()
     elif key.is_valid_int():
