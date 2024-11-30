@@ -14,8 +14,10 @@ class_name Qubit extends Interactable
 enum BasisState {
     ZERO,
     ONE,
-    PLUS,
-    MINUS
+    PLUS_REAL,
+    MINUS_REAL,
+    PLUS_IMAGINARY,
+    MINUS_IMAGINARY
 }
 
 ## Resource path for creating instances of the Qubit scene.
@@ -58,19 +60,7 @@ func _ready() -> void:
     if is_gold:
         bloch_sphere_arrow_head.material_override = GOLD_MATERIAL
         bloch_sphere_arrow_body.material_override = GOLD_MATERIAL
-    match initial_state:
-        BasisState.ZERO:
-            alpha = Vector2(1, 0)
-            beta = Vector2(0, 0)
-        BasisState.ONE:
-            alpha = Vector2(0, 0)
-            beta = Vector2(1, 0)
-        BasisState.PLUS:
-            alpha = Vector2(1 / sqrt(2), 0)
-            beta = Vector2(1 / sqrt(2), 0)
-        BasisState.MINUS:
-            alpha = Vector2(1 / sqrt(2), 0)
-            beta = Vector2(-1 / sqrt(2), 0)
+    set_state(initial_state)
     propagate()
 
 
@@ -100,6 +90,30 @@ func is_zero() -> bool:
 ## Determines whether the qubit represents |1⟩.
 func is_one() -> bool:
     return alpha.is_zero_approx() and beta.is_equal_approx(Vector2.RIGHT)
+
+
+## Sets the state of the qubit to one of the predefined basis states.
+func set_state(basis_state: BasisState) -> void:
+    match initial_state:
+        BasisState.ZERO:
+            alpha = Vector2(1, 0)
+            beta = Vector2(0, 0)
+        BasisState.ONE:
+            alpha = Vector2(0, 0)
+            beta = Vector2(1, 0)
+        BasisState.PLUS_REAL:
+            alpha = Vector2(1 / sqrt(2), 0)
+            beta = Vector2(1 / sqrt(2), 0)
+        BasisState.MINUS_REAL:
+            alpha = Vector2(1 / sqrt(2), 0)
+            beta = Vector2(-1 / sqrt(2), 0)
+        BasisState.PLUS_IMAGINARY:
+            alpha = Vector2(1 / sqrt(2), 0)
+            beta = Vector2(0, 1 / sqrt(2))
+        BasisState.MINUS_IMAGINARY:
+            alpha = Vector2(1 / sqrt(2), 0)
+            beta = Vector2(0, -1 / sqrt(2))
+            pass
 
 
 ## Updates the polar angle and relative phase of the qubit

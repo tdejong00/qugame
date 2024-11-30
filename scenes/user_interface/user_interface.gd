@@ -20,7 +20,6 @@ func _ready() -> void:
     SignalBus.show_hotbar.connect(_on_show_hotbar)
     SignalBus.hide_hotbar.connect(_on_hide_hotbar)
     SignalBus.display_dialogue.connect(_on_display_dialogue)
-    SignalBus.dialogue_finished.connect(_on_dialogue_finished)
     SignalBus.interaction_label_changed.connect(_on_interaction_label_changed)
     SignalBus.restrictions_updated.connect(_on_restrictions_updated)
     SignalBus.fade_out.connect(_on_fade_out)
@@ -97,17 +96,14 @@ func _on_display_dialogue(text: String) -> void:
 
     _is_displaying_dialogue = false
     _stop_displaying_dialogue = false
-    SignalBus.dialogue_finished.emit()
 
-
-## Clears the dialogue after a delay.
-func _on_dialogue_finished() -> void:
     await get_tree().create_timer(DIALOGUE_DELAY).timeout
     # FIXME: it is possible that the dialogue gets cleared
     #        too early, when this message was ended prematurely
     #        and the next message ended before this timer ran out.
     if not _is_displaying_dialogue:
         _dialogue_label.text = ""
+        SignalBus.dialogue_finished.emit()
 
 
 ## Displays the specified interaction text.
