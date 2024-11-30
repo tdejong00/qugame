@@ -104,7 +104,6 @@ func interact(key: String) -> void:
 
     # Check if goal state reached
     if _player.goal_qubit.equals(qubit_out):
-        _player.ui.notify("Level complete!")
         _player.door.open()
     else:
         _player.door.close()

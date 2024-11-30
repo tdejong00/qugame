@@ -2,22 +2,6 @@
 
 [ext_resource type="Script" path="res://scenes/ui/ui.gd" id="1_53jec"]
 
-[sub_resource type="Animation" id="Animation_vg8d4"]
-resource_name = "fade_out"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control/ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 2),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_aeeye"]
 length = 0.001
 tracks/0/type = "value"
@@ -47,6 +31,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vg8d4"]
+resource_name = "fade_out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gvvnj"]
@@ -90,17 +90,8 @@ theme_override_constants/margin_bottom = 32
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 theme_override_constants/separation = 16
-
-[node name="NotificationContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 10
-
-[node name="NotificationLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/NotificationContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-theme_override_font_sizes/font_size = 48
 
 [node name="InteractionContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -111,18 +102,23 @@ size_flags_vertical = 8
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 
+[node name="DialogueContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="DialogueLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/DialogueContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 24
+
 [node name="ButtonsContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+size_flags_vertical = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_gvvnj")
 }
 autoplay = "fade_in"
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -37,7 +37,6 @@ metadata/_editor_floor_ = Vector3(0, -4, 0)
 
 [node name="Player" parent="." node_paths=PackedStringArray("input_qubit", "goal_qubit", "door") instance=ExtResource("2_4f0ab")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -6, 0.5, 5.5)
-size_limit = 1
 allowed_gates_mask = 2
 input_qubit = NodePath("../Objects/QuantumCircuit/InputQubit")
 goal_qubit = NodePath("../Objects/QuantumCircuit/GoalQubit")

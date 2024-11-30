@@ -38,7 +38,6 @@ metadata/_editor_floor_ = Vector3(0, -4, 0)
 
 [node name="Player" parent="." node_paths=PackedStringArray("input_qubit", "goal_qubit", "door") instance=ExtResource("2_s1drc")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -6, 0.5, 4)
-size_limit = 1
 allowed_gates_mask = 1
 input_qubit = NodePath("../Objects/QuantumCircuit/InputQubit")
 goal_qubit = NodePath("../Objects/QuantumCircuit/GoalQubit")
@@ -83,13 +82,6 @@ omni_attenuation = 2.0
 
 [node name="Door" parent="Objects" instance=ExtResource("3_444qi")]
 transform = Transform3D(-8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, 2.5, 0.5, 0)
-
-[node name="Label3D" type="Label3D" parent="Objects"]
-transform = Transform3D(2.98023e-08, 0, -1, 0, 1, 0, 1, 0, 2.98023e-08, 8.4, 3.5, 8.9407e-08)
-text = "Good job!
-Wow! 
-Amazing!"
-font_size = 64
 
 [node name="Teleporter" parent="Objects" instance=ExtResource("6_8rnoy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.5, 0)

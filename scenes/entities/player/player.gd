@@ -26,7 +26,7 @@ class_name Player extends CharacterBody3D
 
 @export_group("Restrictions")
 ## Maximum amount of allowed gates in the circuit.
-@export var size_limit: int = 3
+@export var size_limit: int = 1
 ## Each bit of the mask represents whether that type is allowed.
 ## For example: the bit string `00010010` (`18`) corresponds to
 ## the Z and H gates being allowed.
