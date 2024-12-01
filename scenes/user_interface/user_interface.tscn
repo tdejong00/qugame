@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://5ye6f6br2bts"]
 
 [ext_resource type="Script" path="res://scenes/user_interface/user_interface.gd" id="1_w7rwt"]
-[ext_resource type="LabelSettings" uid="uid://dtgshah47i6kl" path="res://assets/label_settings.tres" id="2_s4hw2"]
+[ext_resource type="LabelSettings" uid="uid://dtgshah47i6kl" path="res://assets/label_settings/default.tres" id="2_s4hw2"]
 
 [sub_resource type="Animation" id="Animation_aeeye"]
 length = 0.001
