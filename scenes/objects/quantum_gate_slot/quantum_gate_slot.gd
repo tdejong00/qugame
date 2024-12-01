@@ -94,7 +94,7 @@ func propagate() -> void:
 ## Evaluates the circuit to a single qubit.
 func evaluate() -> Qubit:
     if qubit_out != null:
-        return qubit_out
+        return qubit_out.evaluate()
     else:
         return qubit_in
 
