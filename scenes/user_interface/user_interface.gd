@@ -38,16 +38,16 @@ func _ready() -> void:
 func _add_hotbar_slot(type: QuantumGate.Type) -> void:
     # Create "button"
     var button: Button = Button.new()
-    button.custom_minimum_size = Vector2(72, 72)
-    button.add_theme_font_size_override("font_size", 28)
+    button.custom_minimum_size = Vector2(96, 96)
+    button.add_theme_font_size_override("font_size", 32)
     button.disabled = true
     button.text = "?"
 
     # Create index label
     var label: Label = Label.new()
     label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
-    label.position += Vector2(6, 2)
-    label.add_theme_font_size_override("font_size", 14)
+    label.position += Vector2(10, -2)
+    label.add_theme_font_size_override("font_size", 16)
     label.text = str(type + 1)
 
     # Add to scene

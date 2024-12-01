@@ -17,3 +17,9 @@ func is_gate_allowed(type: QuantumGate.Type) -> bool:
 ## Updates the allowed gates mask to allow the specified gate.
 func allow_gate(type: QuantumGate.Type) -> void:
     _allowed_gates_mask |= (2 ** type)
+
+
+## Resets the restrictions.
+func reset():
+    size_limit = 1
+    _allowed_gates_mask = 0

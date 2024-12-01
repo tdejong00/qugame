@@ -55,7 +55,7 @@ var _phi: float = 0.0
 
 
 func _ready() -> void:
-    interaction_text = "Press [F] to toggle"
+    interaction_text = "Press [F] to flip"
     bloch_sphere.visible = show_bloch_sphere
     if is_gold:
         bloch_sphere_arrow_head.material_override = GOLD_MATERIAL
@@ -74,6 +74,13 @@ func _physics_process(delta: float) -> void:
 ## Returns a string representation of the qubit state in Dirac notation.
 func _to_string() -> String:
     return "|Ψ⟩ = " + str(alpha) + "|0⟩ " + str(beta) + "|1⟩"
+
+
+## Creates a qubit representing the specified basis state.
+static func from_basis_state(basis_state: BasisState) -> Qubit:
+    var qubit: Qubit = SCENE.instantiate()
+    qubit.set_state(basis_state)
+    return qubit
 
 
 ## Returns whether this qubit matches the other qubit.

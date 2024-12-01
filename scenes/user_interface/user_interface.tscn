@@ -1,13 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://5ye6f6br2bts"]
 
 [ext_resource type="Script" path="res://scenes/user_interface/user_interface.gd" id="1_w7rwt"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_ipvqo"]
-font_size = 32
-outline_size = 4
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 4
-shadow_color = Color(0, 0, 0, 1)
+[ext_resource type="LabelSettings" uid="uid://dtgshah47i6kl" path="res://assets/label_settings.tres" id="2_s4hw2"]
 
 [sub_resource type="Animation" id="Animation_aeeye"]
 length = 0.001
@@ -107,7 +101,7 @@ size_flags_vertical = 8
 
 [node name="InteractionLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/InteractionContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+label_settings = ExtResource("2_s4hw2")
 
 [node name="DialogueContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -116,7 +110,7 @@ size_flags_vertical = 8
 [node name="DialogueLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/DialogueContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-label_settings = SubResource("LabelSettings_ipvqo")
+label_settings = ExtResource("2_s4hw2")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2

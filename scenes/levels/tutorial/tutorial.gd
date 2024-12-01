@@ -1,23 +1,22 @@
 extends Level
 
 @onready var _player: Player = $Player
-@onready var _goal_qubit: Qubit = $Objects/QuantumCircuit/GoalQubit
-@onready var _input_qubit: Qubit = $Objects/QuantumCircuit/InputQubit
-@onready var _quantum_gate_slot: QuantumGateSlot = $Objects/QuantumCircuit/InputQubit/QuantumGateSlot
+@onready var _goal_qubit: Qubit = $Objects/Circuit/GoalQubit
+@onready var _input_qubit: Qubit = $Objects/Circuit/InputQubit
+@onready var _quantum_gate_slot: QuantumGateSlot = $Objects/Circuit/InputQubit/QuantumGateSlot
 @onready var _door: Door = $Objects/Door
 
 
 func _ready() -> void:
     SignalBus.hide_hotbar.emit()
     SignalBus.circuit_changed.connect(_on_circuit_changed)
-    await get_tree().create_timer(2.0).timeout
+    await get_tree().create_timer(LEVEL_DELAY).timeout
 
     await display("Welcome, to the world of quantum computing!")
     await display("Before we start, let’s learn the basics of how quantum bits—or qubits—work.")
     await display("In the classical world, we use bits: things that can be either 0 (off) or 1 (on).")
 
     _input_qubit.show()
-    _player.look_at(_input_qubit.position)
     await display("Just like a classical bit, a qubit can be in state 0 (up) or in state 1 (down).")
     await display("This visualization of a qubit's state is called a Bloch Sphere.")
     await display("Try flipping the qubit's state!")
@@ -27,11 +26,12 @@ func _ready() -> void:
     await SignalBus.circuit_changed
 
     _input_qubit.active = false
-    await display("Great! But here's where qubits get interesting; they can be in both states at once!")
+    await display("Great!")
+    await display("Here's where qubits get interesting; they can be in superposition!")
     _input_qubit.set_state(Qubit.BasisState.PLUS_REAL)
-    await display("We call this superposition.")
+    await display("In superposition, the qubit is \"in both states at the same time\" until we measure it.")
     _input_qubit.set_state(Qubit.BasisState.ZERO)
-    await display("Now that we know what a qubit is, let’s see how we can manipulate it.")
+    await display("Now that we understand the basic qubit states, let's see how we can manipulate these states using quantum gates.")
     await display("Just like classical computers use logic gates, quantum computers use quantum gates to change qubits.")
     LevelRestrictions.allow_gate(QuantumGate.Type.IDENTITY)
     SignalBus.restrictions_updated.emit()
@@ -53,6 +53,7 @@ func _ready() -> void:
     await display("Great! Now try to match the qubit state displayed by the bigger, golden Bloch sphere.")
 
     # Wait for player to match state
+    _door.active = true
     _quantum_gate_slot.active = true
     _input_qubit.active = true
     await _door.door_opened

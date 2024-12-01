@@ -93,7 +93,8 @@ func _input(event) -> void:
         if Input.is_action_just_pressed("interact") and interactable != null:
             interactable.interact(event.as_text_key_label())
 
-        if Input.is_action_just_pressed("ui_accept"):
+        # Skip dialog when an "accept" button is pressed, except "space".
+        if Input.is_action_just_pressed("ui_accept") and not Input.is_action_just_pressed("jump"):
             SignalBus.dialogue_skipped.emit()
 
         # Quit game

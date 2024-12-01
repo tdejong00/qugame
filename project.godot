@@ -22,6 +22,10 @@ LevelRestrictions="*res://scenes/levels/level_restrictions.gd"
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/stretch/mode="canvas_items"
 window/layer_3="environment"
 window/layer_2="world"
 window/layer_1="player"
