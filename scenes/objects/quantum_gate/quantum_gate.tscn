@@ -1,24 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bib67jbusi5e"]
+[gd_scene load_steps=3 format=3 uid="uid://bib67jbusi5e"]
 
 [ext_resource type="Script" path="res://scenes/objects/quantum_gate/quantum_gate.gd" id="1_4dr3p"]
 [ext_resource type="PackedScene" uid="uid://bealr5knvwopx" path="res://addons/kaykit_space_base_bits/Assets/gltf/roofmodule_base.gltf" id="2_xoba1"]
-[ext_resource type="Material" uid="uid://b1yn56oqf1vd1" path="res://assets/materials/grey.tres" id="3_hjpw3"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cv1ar"]
-
-[sub_resource type="TextMesh" id="TextMesh_fefgh"]
-material = ExtResource("3_hjpw3")
-font_size = 96
-depth = 0.1
 
 [node name="QuantumGate" type="Node3D"]
 script = ExtResource("1_4dr3p")
 
 [node name="Base" parent="." instance=ExtResource("2_xoba1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-
-[node name="TextMeshInstance" type="MeshInstance3D" parent="Base"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.15, 0)
-material_overlay = SubResource("ShaderMaterial_cv1ar")
-mesh = SubResource("TextMesh_fefgh")
-skeleton = NodePath("")
