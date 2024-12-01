@@ -9,7 +9,6 @@ extends Level
 
 func _ready() -> void:
     SignalBus.hide_hotbar.emit()
-    SignalBus.circuit_changed.connect(_on_circuit_changed)
     await get_tree().create_timer(LEVEL_DELAY).timeout
 
     await display("Welcome, to the world of quantum computing!")
@@ -21,7 +20,7 @@ func _ready() -> void:
     _input_qubit.set_state(Qubit.BasisState.ONE)
     await display("...or in state 1 (down).")
     _input_qubit.set_state(Qubit.BasisState.ZERO)
-    await display("This visualization of a qubit's state is called a Bloch Sphere.")
+    await display("This visualization of a qubit's state is called a Bloch sphere.")
     await display("Here's where qubits get interesting; they can be in superposition!")
     _input_qubit.set_state(Qubit.BasisState.PLUS_REAL)
     await display("In superposition, the qubit is \"in both states at the same time\" until we measure it.")
@@ -32,32 +31,44 @@ func _ready() -> void:
     SignalBus.restrictions_updated.emit()
     SignalBus.show_hotbar.emit()
     await display("Let’s start with the simplest gate: the Identity gate.")
-    await display("The Identity gate does... nothing! It leaves the qubit in its current state.")
+    await display("The Identity gate does... nothing!")
     await display("Apply the Identity gate to the input qubit.", true)
 
-    # Wait for player to apply gate
+    # Wait for player to apply I gate
     _quantum_gate_slot.visible = true
     _quantum_gate_slot.active = true
     while not _input_qubit.next_slot.quantum_gate:
         await SignalBus.circuit_changed
-
-    _goal_qubit.visible = true
     _quantum_gate_slot.active = false
-    _input_qubit.active = false
-    await display("Great! Now try to match the qubit state displayed by the bigger, golden Bloch sphere.", true)
+
+    await display("Great! The Identity gate leaves the qubit in its current state.")
+    await display("Let's move on to a more useful gate: the Pauli-X gate.")
+    await display("Apply the Pauli-X gate to the input qubit.", true)
+
+    # Wait for player to apply X gate
+    LevelRestrictions.allow_gate(QuantumGate.Type.PAULI_X)
+    SignalBus.restrictions_updated.emit()
+    var expected = Qubit.from_basis_state(Qubit.BasisState.ONE)
+    _quantum_gate_slot.active = true
+    while not _input_qubit.evaluate().equals(expected):
+        await SignalBus.circuit_changed
+    _quantum_gate_slot.active = false
+
+    await display("Great! You’ve flipped the qubit's state.")
+    _goal_qubit.visible = true
+    await display("Take a look at the bigger, golden Bloch sphere.")
+    await display("Match the state of the golden Bloch sphere.", true)
 
     # Wait for player to match state
-    _door.active = true
-    _quantum_gate_slot.active = true
-    _input_qubit.active = true
-    await _door.door_opened
+    LevelRestrictions.size_limit = 2
+    SignalBus.restrictions_updated.emit()
+    _quantum_gate_slot.clear()
+    _quantum_gate_slot.set_gate(QuantumGate.Type.PAULI_X)
+    while not _input_qubit.evaluate().equals(_goal_qubit):
+        await SignalBus.circuit_changed
+    _quantum_gate_slot.next_slot.active = false
+    _door.open()
 
-    await display("This conludes the tutorial! Continue through the door that opened just now. Good luck!")
-
-
-## Evaluates the circuit and opens the door if it matches the goal state.
-func _on_circuit_changed() -> void:
-    if not _door.is_open and _input_qubit.evaluate().equals(_goal_qubit):
-        _door.open()
-    else:
-        _door.close()
+    await display("This conludes the tutorial!")
+    await display("Continue through the door that opened just now.")
+    await display("Good luck!")

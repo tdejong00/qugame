@@ -5,7 +5,9 @@ extends Level
 @onready var _quantum_gate_slot: QuantumGateSlot = $Objects/Circuit/InputQubit/QuantumGateSlot
 
 func _ready() -> void:
+    SignalBus.hide_hotbar.emit()
     await get_tree().create_timer(LEVEL_DELAY).timeout
+    SignalBus.show_hotbar.emit()
     LevelRestrictions.reset()
 
     await display("Welcome to your first puzzle!")

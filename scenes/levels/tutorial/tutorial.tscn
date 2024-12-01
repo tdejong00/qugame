@@ -16,12 +16,12 @@ sky_horizon_color = Color(0.598989, 0.597969, 0.598742, 1)
 ground_bottom_color = Color(0.261676, 0.223495, 0.179171, 1)
 ground_horizon_color = Color(0.598989, 0.597969, 0.598742, 1)
 
-[sub_resource type="Sky" id="Sky_5thir"]
+[sub_resource type="Sky" id="Sky_4i27a"]
 sky_material = SubResource("ProceduralSkyMaterial_gyik4")
 
 [sub_resource type="Environment" id="Environment_hc8un"]
 background_mode = 2
-sky = SubResource("Sky_5thir")
+sky = SubResource("Sky_4i27a")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -52,7 +52,6 @@ transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -12, 0.5, 4)
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -10, 0.5, -4)
 visible = false
 is_gold = true
-initial_state = 1
 
 [node name="InputQubit" parent="Objects/Circuit" node_paths=PackedStringArray("next_slot") instance=ExtResource("3_gy2aj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.5, 0)

@@ -6,7 +6,7 @@ signal door_opened
 signal door_closed
 
 ## Whether the door can be opened.
-@export var active: bool = false
+@export var active: bool = true
 
 ## Whether the door is open or closed.
 var is_open: bool = false
@@ -25,7 +25,7 @@ func open():
 
 ## Closes the door.
 func close():
-    _animation_player.stop()
-    _animation_player.seek(0.0)
     door_closed.emit()
+    _animation_player.play_backwards("open")
+    await _animation_player.animation_finished
     is_open = false
