@@ -7,6 +7,7 @@ class_name UserInterface extends CanvasLayer
 @export var dialogue_delay: float = 2.5
 
 var _is_displaying_dialogue: bool = false
+var _is_persistent_dialogue: bool = false
 var _stop_displaying_dialogue: bool = false
 
 @onready var _interaction_label: Label = $Control/MarginContainer/VBoxContainer/InteractionContainer/InteractionLabel
@@ -77,7 +78,7 @@ func _on_restrictions_updated() -> void:
 ## Writes the specified dialogue character by character.
 ## If a dialogue is already being written, it is stopped
 ## prematurely.
-func _on_display_dialogue(text: String) -> void:
+func _on_display_dialogue(text: String, persistent: bool) -> void:
     _stop_displaying_dialogue = _is_displaying_dialogue
     _dialogue_timer.stop()
 
@@ -86,8 +87,15 @@ func _on_display_dialogue(text: String) -> void:
         await get_tree().create_timer(typing_delay).timeout
 
     _is_displaying_dialogue = true
+    _is_persistent_dialogue = persistent
 
     _dialogue_label.text = ""
+
+    if persistent:
+        _dialogue_label.label_settings.font_color = Color.GOLD
+    else:
+        _dialogue_label.label_settings.font_color = Color.WHITE
+
     for i in range(text.length()):
         # Stop the dialogue when a new dialogue is issued
         if _stop_displaying_dialogue:
@@ -102,7 +110,8 @@ func _on_display_dialogue(text: String) -> void:
 
     _is_displaying_dialogue = false
     _stop_displaying_dialogue = false
-    _dialogue_timer.start()
+    if not persistent:
+        _dialogue_timer.start()
 
 
 ## Clears the dialogue label.
@@ -115,7 +124,7 @@ func _on_timeout() -> void:
 func _on_dialogue_skipped() -> void:
     if _is_displaying_dialogue:
         _stop_displaying_dialogue = true
-    else:
+    elif not _is_persistent_dialogue:
         SignalBus.dialogue_finished.emit()
 
 

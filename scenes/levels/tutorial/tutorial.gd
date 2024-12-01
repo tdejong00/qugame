@@ -13,20 +13,15 @@ func _ready() -> void:
     await get_tree().create_timer(LEVEL_DELAY).timeout
 
     await display("Welcome, to the world of quantum computing!")
-    await display("Before we start, let’s learn the basics of how quantum bits—or qubits—work.")
+    await display("Before we start, let’s learn the basics of how quantum bits, or qubits, work.")
     await display("In the classical world, we use bits: things that can be either 0 (off) or 1 (on).")
 
     _input_qubit.show()
-    await display("Just like a classical bit, a qubit can be in state 0 (up) or in state 1 (down).")
+    await display("Just like a classical bit, a qubit can be in state 0 (up)...")
+    _input_qubit.set_state(Qubit.BasisState.ONE)
+    await display("...or in state 1 (down).")
+    _input_qubit.set_state(Qubit.BasisState.ZERO)
     await display("This visualization of a qubit's state is called a Bloch Sphere.")
-    await display("Try flipping the qubit's state!")
-
-    # Wait for player to flip input qubit
-    _input_qubit.active = true
-    await SignalBus.circuit_changed
-
-    _input_qubit.active = false
-    await display("Great!")
     await display("Here's where qubits get interesting; they can be in superposition!")
     _input_qubit.set_state(Qubit.BasisState.PLUS_REAL)
     await display("In superposition, the qubit is \"in both states at the same time\" until we measure it.")
@@ -38,8 +33,7 @@ func _ready() -> void:
     SignalBus.show_hotbar.emit()
     await display("Let’s start with the simplest gate: the Identity gate.")
     await display("The Identity gate does... nothing! It leaves the qubit in its current state.")
-
-    await display("Try applying it to the input qubit!")
+    await display("Apply the Identity gate to the input qubit.", true)
 
     # Wait for player to apply gate
     _quantum_gate_slot.visible = true
@@ -50,7 +44,7 @@ func _ready() -> void:
     _goal_qubit.visible = true
     _quantum_gate_slot.active = false
     _input_qubit.active = false
-    await display("Great! Now try to match the qubit state displayed by the bigger, golden Bloch sphere.")
+    await display("Great! Now try to match the qubit state displayed by the bigger, golden Bloch sphere.", true)
 
     # Wait for player to match state
     _door.active = true

@@ -12,7 +12,7 @@ signal hide_hotbar
 signal show_hotbar
 
 ## Emitted when the specified text should be displayed as a dialogue.
-signal display_dialogue(text: String)
+signal display_dialogue(text: String, persistent: bool)
 ## Emitted when the dialogue was skipped.
 signal dialogue_skipped
 ## Emitted when the dialouge has finished.

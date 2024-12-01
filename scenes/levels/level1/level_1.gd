@@ -34,5 +34,3 @@ func _ready() -> void:
     _quantum_gate_slot.active = false
 
     await display("Great success!")
-    
-    
