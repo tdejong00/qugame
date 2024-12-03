@@ -8,6 +8,8 @@ extends Level
 
 
 func _ready() -> void:
+    LevelRestrictions.size_limit = 1
+    SignalBus.restrictions_updated.emit()
     SignalBus.hide_hotbar.emit()
     await get_tree().create_timer(LEVEL_DELAY).timeout
 

@@ -69,7 +69,7 @@ func set_gate(type: QuantumGate.Type) -> void:
 ## Determines whether an empty slot can be added based on the size restriction.
 func can_add_empty_slot():
     var slots = get_tree().get_nodes_in_group("circuit")
-    return next_slot == null and slots.size() < LevelRestrictions.size_limit
+    return next_slot == null and LevelRestrictions.is_size_allowed(slots.size())
 
 
 ## Clears the quantum gate slot and all following slots.
