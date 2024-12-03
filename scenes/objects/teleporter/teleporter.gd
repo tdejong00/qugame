@@ -14,4 +14,5 @@ func _ready() -> void:
 func interact(key: String) -> void:
     super.interact(key)
     if key == "F":
+        SignalBus.hide_hotbar.emit()
         SignalBus.fade_out.emit(next_scene)

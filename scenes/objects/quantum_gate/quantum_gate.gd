@@ -8,9 +8,7 @@ enum Type {
     PAULI_X,
     PAULI_Y,
     PAULI_Z,
-    ROTATE_X,
-    ROTATE_Y,
-    ROTATE_Z
+    PI_OVER_8
 }
 
 ## Resource path for creating instances of the scene.
@@ -60,12 +58,8 @@ static func type_to_string(type: Type) -> String:
             return "Y"
         Type.PAULI_Z:
             return "Z"
-        Type.ROTATE_X:
-            return "Rx"
-        Type.ROTATE_Y:
-            return "Ry"
-        Type.ROTATE_Z:
-            return "Rz​"
+        Type.PI_OVER_8:
+            return "T​"
         _:
             return "?"
 
@@ -93,17 +87,7 @@ static func type_to_matrix(type: Type) -> PackedVector2Array:
                 Vector2(1.0, 0.0), Vector2(0.0, 0.0),
                 Vector2(0.0, 0.0), Vector2(-1.0, 0.0)
             ]
-        Type.ROTATE_X:
-            return [
-                Vector2(cos(PI / 8), 0), Vector2(0, -sin(PI / 8)),
-                Vector2(0, -sin(PI / 8)), Vector2(cos(PI / 8), 0)
-            ]
-        Type.ROTATE_Y:
-            return [
-                Vector2(cos(PI / 8), 0), Vector2(-sin(PI / 8), 0),
-                Vector2(sin(PI / 8), 0), Vector2(cos(PI / 8), 0)
-            ]
-        Type.ROTATE_Z:
+        Type.PI_OVER_8:
             return [
                 Vector2(1, 0), Vector2(0, 0),
                 Vector2(0, 0), Vector2(1 / sqrt(2), 1 / sqrt(2))
