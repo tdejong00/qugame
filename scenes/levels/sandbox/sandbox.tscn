@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://ha0hkk48tc5c"]
+
+[ext_resource type="Script" path="res://scenes/levels/sandbox/sandbox.gd" id="1_qmh5s"]
+[ext_resource type="PackedScene" uid="uid://ckk03qsadcwlw" path="res://scenes/entities/player/player.tscn" id="3_farf7"]
+[ext_resource type="PackedScene" uid="uid://5ye6f6br2bts" path="res://scenes/user_interface/user_interface.tscn" id="4_beigh"]
+[ext_resource type="PackedScene" uid="uid://c8b5k7lep8tea" path="res://scenes/chunks/end_chunk.tscn" id="4_hmotm"]
+[ext_resource type="PackedScene" uid="uid://bsi2sm86hkhor" path="res://scenes/objects/qubit/qubit.tscn" id="5_41glk"]
+[ext_resource type="PackedScene" uid="uid://brhccqxun0klb" path="res://scenes/chunks/middle_chunk.tscn" id="5_ow1j5"]
+[ext_resource type="PackedScene" uid="uid://65xnlas5jt2i" path="res://scenes/objects/quantum_gate_slot/quantum_gate_slot.tscn" id="6_pvypp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_omytr"]
+sky_top_color = Color(0.134281, 0.16838, 0.215799, 1)
+sky_horizon_color = Color(0.598989, 0.597969, 0.598742, 1)
+ground_bottom_color = Color(0.261676, 0.223495, 0.179171, 1)
+ground_horizon_color = Color(0.598989, 0.597969, 0.598742, 1)
+
+[sub_resource type="Sky" id="Sky_5thir"]
+sky_material = SubResource("ProceduralSkyMaterial_omytr")
+
+[sub_resource type="Environment" id="Environment_qstkd"]
+background_mode = 2
+sky = SubResource("Sky_5thir")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Sandbox" type="Node3D"]
+script = ExtResource("1_qmh5s")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qstkd")
+
+[node name="Player" parent="." instance=ExtResource("3_farf7")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 2, 4, 10)
+
+[node name="UserInterface" parent="." instance=ExtResource("4_beigh")]
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="EndChunk" parent="World" instance=ExtResource("4_hmotm")]
+
+[node name="MiddleChunk" parent="World" instance=ExtResource("5_ow1j5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+
+[node name="MiddleChunk2" parent="World" instance=ExtResource("5_ow1j5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 0)
+
+[node name="MiddleChunk3" parent="World" instance=ExtResource("5_ow1j5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 0)
+
+[node name="MiddleChunk4" parent="World" instance=ExtResource("5_ow1j5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, 0)
+
+[node name="MiddleChunk5" parent="World" instance=ExtResource("5_ow1j5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 0)
+
+[node name="MiddleChunk6" parent="World" instance=ExtResource("5_ow1j5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 120, 0, 0)
+
+[node name="MiddleChunk7" parent="World" instance=ExtResource("5_ow1j5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140, 0, 0)
+
+[node name="EndChunk2" parent="World" instance=ExtResource("4_hmotm")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 168, 0, 16)
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="InputQubit" parent="Objects" node_paths=PackedStringArray("next_slot") instance=ExtResource("5_41glk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 6)
+next_slot = NodePath("QuantumGateSlot")
+
+[node name="QuantumGateSlot" parent="Objects/InputQubit" node_paths=PackedStringArray("qubit_in") instance=ExtResource("6_pvypp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+qubit_in = NodePath("..")
+active = true
