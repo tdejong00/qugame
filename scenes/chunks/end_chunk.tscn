@@ -1,0 +1,284 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8b5k7lep8tea"]
+
+[ext_resource type="PackedScene" uid="uid://cniq56l4q71u6" path="res://addons/kaykit_prototype_bits/Assets/gltf/Cube_Prototype_Large_A.gltf" id="1_dkmtg"]
+
+[node name="EndChunk" type="Node3D"]
+
+[node name="Lamp" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 4)
+light_energy = 24.0
+omni_range = 24.0
+omni_attenuation = 2.0
+
+[node name="Lamp2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 12)
+light_energy = 24.0
+omni_range = 24.0
+omni_attenuation = 2.0
+
+[node name="Block" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12)
+
+[node name="Block2" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 12)
+
+[node name="Block3" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 12)
+
+[node name="Block4" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+
+[node name="Block5" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 8)
+
+[node name="Block6" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 8)
+
+[node name="Block7" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 8)
+
+[node name="Block8" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="Block9" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 4)
+
+[node name="Block10" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 4)
+
+[node name="Block11" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+
+[node name="Block12" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="Block17" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12, 2, 14)
+
+[node name="Block18" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 8, 2, 14)
+
+[node name="Block19" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4, 2, 14)
+
+[node name="Block20" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2, 14)
+
+[node name="Block21" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12, 6, 14)
+
+[node name="Block22" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 8, 6, 14)
+
+[node name="Block23" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4, 6, 14)
+
+[node name="Block24" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 6, 14)
+
+[node name="Block25" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12, 10, 14)
+
+[node name="Block26" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 8, 10, 14)
+
+[node name="Block27" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4, 10, 14)
+
+[node name="Block28" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 10, 14)
+
+[node name="Block29" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12, 14, 14)
+
+[node name="Block30" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 8, 14, 14)
+
+[node name="Block31" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4, 14, 14)
+
+[node name="Block32" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 14, 14)
+
+[node name="Block33" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12, 2, -2)
+
+[node name="Block34" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 8, 2, -2)
+
+[node name="Block35" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4, 2, -2)
+
+[node name="Block36" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2, -2)
+
+[node name="Block37" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12, 6, -2)
+
+[node name="Block38" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 8, 6, -2)
+
+[node name="Block39" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4, 6, -2)
+
+[node name="Block40" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 6, -2)
+
+[node name="Block41" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12, 10, -2)
+
+[node name="Block42" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 8, 10, -2)
+
+[node name="Block43" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4, 10, -2)
+
+[node name="Block44" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 10, -2)
+
+[node name="Block45" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12, 14, -2)
+
+[node name="Block46" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 8, 14, -2)
+
+[node name="Block47" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4, 14, -2)
+
+[node name="Block48" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 14, -2)
+
+[node name="Block49" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 12, 20, 4)
+
+[node name="Block50" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 8, 20, 4)
+
+[node name="Block51" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 4, 20, 4)
+
+[node name="Block52" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 20, 4)
+
+[node name="Block53" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 12, 20, 8)
+
+[node name="Block54" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 8, 20, 8)
+
+[node name="Block55" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 4, 20, 8)
+
+[node name="Block56" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 20, 8)
+
+[node name="Block57" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 12, 20, 12)
+
+[node name="Block58" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 8, 20, 12)
+
+[node name="Block59" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 4, 20, 12)
+
+[node name="Block60" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 20, 12)
+
+[node name="Block61" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 12, 20, 16)
+
+[node name="Block62" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 8, 20, 16)
+
+[node name="Block63" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 4, 20, 16)
+
+[node name="Block64" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 20, 16)
+
+[node name="Block65" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 12, 20, 0)
+
+[node name="Block66" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 8, 20, 0)
+
+[node name="Block67" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 4, 20, 0)
+
+[node name="Block68" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 20, 0)
+
+[node name="Block78" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 4.37114e-08, 8.74228e-08, 1, -1, 4.37114e-08, 4.37114e-08, -2, 2, 0)
+
+[node name="Block79" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 4.37114e-08, 8.74228e-08, 1, -1, 4.37114e-08, 4.37114e-08, -2, 2, 4)
+
+[node name="Block80" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 4.37114e-08, 8.74228e-08, 1, -1, 4.37114e-08, 4.37114e-08, -2, 2, 8)
+
+[node name="Block81" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 14, 16)
+
+[node name="Block82" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 10, 16)
+
+[node name="Block83" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 6, 16)
+
+[node name="Block84" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 2, 16)
+
+[node name="Block85" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 14, 12)
+
+[node name="Block86" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 10, 12)
+
+[node name="Block87" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 6, 12)
+
+[node name="Block88" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 2, 12)
+
+[node name="Block89" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 18, 0)
+
+[node name="Block90" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 14, 0)
+
+[node name="Block91" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 10, 0)
+
+[node name="Block92" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 6, 0)
+
+[node name="Block93" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 18, 4)
+
+[node name="Block94" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 14, 4)
+
+[node name="Block95" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 10, 4)
+
+[node name="Block96" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 6, 4)
+
+[node name="Block97" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 18, 8)
+
+[node name="Block98" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 14, 8)
+
+[node name="Block99" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 10, 8)
+
+[node name="Block100" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 6, 8)
+
+[node name="Block101" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 18, 12)
+
+[node name="Block102" parent="." instance=ExtResource("1_dkmtg")]
+transform = Transform3D(-4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -8.74228e-08, 8.74228e-08, 8.74228e-08, 1, -2, 18, 16)
