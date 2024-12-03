@@ -4,7 +4,7 @@ class_name Interactable extends Node3D
 ## Whether the interactable can be interacted with.
 @export var active: bool = false : set = _set_active
 ## Interaction radius of the interactable _area.
-@export_range(0.0, 100.0) var interaction_radius: float = 2.0
+@export_range(0.0, 100.0) var interaction_radius: float = 2.5
 
 ## Text which will be displayed while interactable.
 var interaction_text: String = "Press [F] to interact."
