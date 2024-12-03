@@ -26,3 +26,9 @@ signal circuit_changed
 
 ## Emitted when the scene should transition to the next scene using a fade out.
 signal fade_out(packed_scene: PackedScene)
+
+# Emitted when the area of an interactable is entered by the player.
+signal interactable_area_entered(interactable: Interactable)
+
+# Emitted when the area of an interactable is exited by the player.
+signal interactable_area_exited(interactable: Interactable)

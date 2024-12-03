@@ -35,6 +35,9 @@ var _bob_t: float = 0.0
 
 
 func _ready() -> void:
+    SignalBus.interactable_area_entered.connect(_on_interactable_area_entered)
+    SignalBus.interactable_area_exited.connect(_on_interactable_area_exited)
+
     # Stop ray cast from hitting player
     _ray_cast.add_exception(self)
 
@@ -43,15 +46,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-    # Determine if looking at interactable object
-    if not _ray_cast.is_colliding() or _ray_cast.get_collider().get_parent() is not Interactable:
-        interactable = null
-        SignalBus.change_interaction_label.emit("")
-    else:
-        var collider = _ray_cast.get_collider().get_parent()
-        interactable = collider
-        SignalBus.change_interaction_label.emit(collider.interaction_text)
-
     # Handle gravity
     if not is_on_floor():
         velocity.y -= gravity * delta
@@ -120,3 +114,14 @@ func _bob_camera(t: float) -> void:
     v.y = sin(t * bob_frequency) * bob_amplitude
     v.x = cos(t * bob_frequency / 2) * bob_amplitude
     _camera.transform.origin = v
+
+
+func _on_interactable_area_entered(interactable: Interactable) -> void:
+    self.interactable = interactable
+    SignalBus.change_interaction_label.emit(interactable.interaction_text)
+
+
+func _on_interactable_area_exited(interactable: Interactable) -> void:
+    if self.interactable == interactable:
+        SignalBus.change_interaction_label.emit("")
+        interactable = null
