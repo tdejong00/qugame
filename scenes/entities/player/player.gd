@@ -35,93 +35,93 @@ var _bob_t: float = 0.0
 
 
 func _ready() -> void:
-    SignalBus.interactable_area_entered.connect(_on_interactable_area_entered)
-    SignalBus.interactable_area_exited.connect(_on_interactable_area_exited)
+	SignalBus.interactable_area_entered.connect(_on_interactable_area_entered)
+	SignalBus.interactable_area_exited.connect(_on_interactable_area_exited)
 
-    # Stop ray cast from hitting player
-    _ray_cast.add_exception(self)
+	# Stop ray cast from hitting player
+	_ray_cast.add_exception(self)
 
-    # Capture mouse
-    Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Capture mouse
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _physics_process(delta: float) -> void:
-    # Handle gravity
-    if not is_on_floor():
-        velocity.y -= gravity * delta
+	# Handle gravity
+	if not is_on_floor():
+		velocity.y -= gravity * delta
 
-    # Handle Jump
-    if Input.is_action_just_pressed("jump") and is_on_floor():
-        velocity.y = jump_velocity
+	# Handle Jump
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = jump_velocity
 
-    # Handle sprint
-    var speed = walk_velocity
-    if Input.is_action_pressed("sprint"):
-        speed = sprint_velocity
+	# Handle sprint
+	var speed = walk_velocity
+	if Input.is_action_pressed("sprint"):
+		speed = sprint_velocity
 
-    # Get input direction and handle movement/deceleration.
-    var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-    var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-    if is_on_floor():
-        if direction:
-            velocity.x = direction.x * speed
-            velocity.z = direction.z * speed
-        else:
-            velocity.x = 0.0
-            velocity.z = 0.0
-    else:
-        velocity.x = lerp(velocity.x, direction.x * speed, delta)
-        velocity.z = lerp(velocity.z, direction.z * speed, delta)
+	# Get input direction and handle movement/deceleration.
+	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if is_on_floor():
+		if direction:
+			velocity.x = direction.x * speed
+			velocity.z = direction.z * speed
+		else:
+			velocity.x = 0.0
+			velocity.z = 0.0
+	else:
+		velocity.x = lerp(velocity.x, direction.x * speed, delta)
+		velocity.z = lerp(velocity.z, direction.z * speed, delta)
 
-    # Handle view bobbing
-    if enable_bobbing and is_on_floor():
-        _bob_t += velocity.length() * delta
-        _bob_camera(_bob_t)
+	# Handle view bobbing
+	if enable_bobbing and is_on_floor():
+		_bob_t += velocity.length() * delta
+		_bob_camera(_bob_t)
 
-    move_and_slide()
+	move_and_slide()
 
 
 func _input(event) -> void:
-    if event is InputEventKey:
-        # Handle interactions
-        if Input.is_action_just_pressed("interact") and interactable != null:
-            interactable.interact(event.as_text_key_label())
+	if event is InputEventKey:
+		# Handle interactions
+		if Input.is_action_just_pressed("interact") and interactable != null:
+			interactable.interact(event.as_text_key_label())
 
-        # Skip dialog when an "accept" button is pressed, except "space".
-        if Input.is_action_just_pressed("ui_accept") and not Input.is_action_just_pressed("jump"):
-            SignalBus.dialogue_skipped.emit()
+		# Skip dialog when an "accept" button is pressed, except "space".
+		if Input.is_action_just_pressed("ui_accept") and not Input.is_action_just_pressed("jump"):
+			SignalBus.dialogue_skipped.emit()
 
-        # Quit game
-        if Input.is_action_just_pressed("quit"):
-            get_tree().quit()
+		# Quit game
+		if Input.is_action_just_pressed("quit"):
+			get_tree().quit()
 
-    # Handle camera movement
-    if event is InputEventMouseMotion:
-        _rotate_camera(event)
+	# Handle camera movement
+	if event is InputEventMouseMotion:
+		_rotate_camera(event)
 
 
 ## Rotates the camera using the relative position of the mouse.
 func _rotate_camera(event: InputEventMouseMotion) -> void:
-    rotation.y -= event.relative.x * 0.001 * camera_sensitivity
-    _camera.rotation.x -= event.relative.y * 0.001 * camera_sensitivity
-    _camera.rotation.x = clamp(_camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+	rotation.y -= event.relative.x * 0.001 * camera_sensitivity
+	_camera.rotation.x -= event.relative.y * 0.001 * camera_sensitivity
+	_camera.rotation.x = clamp(_camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 
 ## Applies a bobbing effect to the camera to simulate head movement while walking.
 ## FIXME: use animation instead
 func _bob_camera(t: float) -> void:
-    var v = Vector3.ZERO
-    v.y = sin(t * bob_frequency) * bob_amplitude
-    v.x = cos(t * bob_frequency / 2) * bob_amplitude
-    _camera.transform.origin = v
+	var v = Vector3.ZERO
+	v.y = sin(t * bob_frequency) * bob_amplitude
+	v.x = cos(t * bob_frequency / 2) * bob_amplitude
+	_camera.transform.origin = v
 
 
 func _on_interactable_area_entered(interactable: Interactable) -> void:
-    self.interactable = interactable
-    SignalBus.change_interaction_label.emit(interactable.interaction_text)
+	self.interactable = interactable
+	SignalBus.change_interaction_label.emit(interactable.interaction_text)
 
 
 func _on_interactable_area_exited(interactable: Interactable) -> void:
-    if self.interactable == interactable:
-        SignalBus.change_interaction_label.emit("")
-        interactable = null
+	if self.interactable == interactable:
+		SignalBus.change_interaction_label.emit("")
+		interactable = null

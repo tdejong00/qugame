@@ -16,16 +16,16 @@ var is_open: bool = false
 
 ## Opens the door.
 func open():
-    if active:
-        door_opened.emit()
-        _animation_player.play("open")
-        await _animation_player.animation_finished
-        is_open = true
+	if active:
+		door_opened.emit()
+		_animation_player.play("open")
+		await _animation_player.animation_finished
+		is_open = true
 
 
 ## Closes the door.
 func close():
-    door_closed.emit()
-    _animation_player.play_backwards("open")
-    await _animation_player.animation_finished
-    is_open = false
+	door_closed.emit()
+	_animation_player.play_backwards("open")
+	await _animation_player.animation_finished
+	is_open = false

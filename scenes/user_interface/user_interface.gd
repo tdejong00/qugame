@@ -18,123 +18,123 @@ var _stop_displaying_dialogue: bool = false
 
 
 func _ready() -> void:
-    _dialogue_timer.wait_time = dialogue_delay
-    _dialogue_timer.timeout.connect(_on_timeout)
+	_dialogue_timer.wait_time = dialogue_delay
+	_dialogue_timer.timeout.connect(_on_timeout)
 
-    SignalBus.show_hotbar.connect(_on_show_hotbar)
-    SignalBus.hide_hotbar.connect(_on_hide_hotbar)
-    SignalBus.display_dialogue.connect(_on_display_dialogue)
-    SignalBus.dialogue_skipped.connect(_on_dialogue_skipped)
-    SignalBus.change_interaction_label.connect(_on_interaction_label_changed)
-    SignalBus.restrictions_updated.connect(_on_restrictions_updated)
-    SignalBus.fade_out.connect(_on_fade_out)
+	SignalBus.show_hotbar.connect(_on_show_hotbar)
+	SignalBus.hide_hotbar.connect(_on_hide_hotbar)
+	SignalBus.display_dialogue.connect(_on_display_dialogue)
+	SignalBus.dialogue_skipped.connect(_on_dialogue_skipped)
+	SignalBus.change_interaction_label.connect(_on_interaction_label_changed)
+	SignalBus.restrictions_updated.connect(_on_restrictions_updated)
+	SignalBus.fade_out.connect(_on_fade_out)
 
-    ## Add hotbar slot for every gate type
-    for type in QuantumGate.Type.values():
-        _add_hotbar_slot(type)
+	## Add hotbar slot for every gate type
+	for type in QuantumGate.Type.values():
+		_add_hotbar_slot(type)
 
 
 ## Adds a slot to the hotbar for the specified gate type.
 ## All slots are disable by default.
 func _add_hotbar_slot(type: QuantumGate.Type) -> void:
-    # Create "button"
-    var button: Button = Button.new()
-    button.custom_minimum_size = Vector2(96, 96)
-    button.add_theme_font_size_override("font_size", 32)
-    button.disabled = true
-    button.text = "?"
+	# Create "button"
+	var button: Button = Button.new()
+	button.custom_minimum_size = Vector2(96, 96)
+	button.add_theme_font_size_override("font_size", 32)
+	button.disabled = true
+	button.text = "?"
 
-    # Create index label
-    var label: Label = Label.new()
-    label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
-    label.position += Vector2(10, -2)
-    label.add_theme_font_size_override("font_size", 16)
-    label.text = str(type + 1)
+	# Create index label
+	var label: Label = Label.new()
+	label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	label.position += Vector2(10, -2)
+	label.add_theme_font_size_override("font_size", 16)
+	label.text = str(type + 1)
 
-    # Add to scene
-    button.add_child(label)
-    _buttons_container.add_child(button)
+	# Add to scene
+	button.add_child(label)
+	_buttons_container.add_child(button)
 
 
 ## Shows the hotbar.
 func _on_show_hotbar() -> void:
-    _buttons_container.visible = true
+	_buttons_container.visible = true
 
 
 ## Hides the hotbar.
 func _on_hide_hotbar() -> void:
-    _buttons_container.visible = false
+	_buttons_container.visible = false
 
 
 ## Changes whether the slot corresponding to the specified type should
 ## be enabled or disabled.
 func _on_restrictions_updated() -> void:
-    for type in QuantumGate.Type.values():
-        var button: Button = _buttons_container.get_child(type)
-        button.disabled = not LevelRestrictions.is_gate_allowed(type)
-        button.text = "?" if button.disabled else QuantumGate.type_to_string(type)
+	for type in QuantumGate.Type.values():
+		var button: Button = _buttons_container.get_child(type)
+		button.disabled = not LevelRestrictions.is_gate_allowed(type)
+		button.text = "?" if button.disabled else QuantumGate.type_to_string(type)
 
 
 ## Writes the specified dialogue character by character.
 ## If a dialogue is already being written, it is stopped
 ## prematurely.
 func _on_display_dialogue(text: String, persistent: bool) -> void:
-    _stop_displaying_dialogue = _is_displaying_dialogue
-    _dialogue_timer.stop()
+	_stop_displaying_dialogue = _is_displaying_dialogue
+	_dialogue_timer.stop()
 
-    # Wait for current dialogue to finish
-    while _is_displaying_dialogue:
-        await get_tree().create_timer(typing_delay).timeout
+	# Wait for current dialogue to finish
+	while _is_displaying_dialogue:
+		await get_tree().create_timer(typing_delay).timeout
 
-    _is_displaying_dialogue = true
-    _is_persistent_dialogue = persistent
+	_is_displaying_dialogue = true
+	_is_persistent_dialogue = persistent
 
-    _dialogue_label.text = ""
+	_dialogue_label.text = ""
 
-    if persistent:
-        _dialogue_label.label_settings.font_color = Color.GOLD
-    else:
-        _dialogue_label.label_settings.font_color = Color.WHITE
+	if persistent:
+		_dialogue_label.label_settings.font_color = Color.GOLD
+	else:
+		_dialogue_label.label_settings.font_color = Color.WHITE
 
-    for i in range(text.length()):
-        # Stop the dialogue when a new dialogue is issued
-        if _stop_displaying_dialogue:
-            _is_displaying_dialogue = false
-            _stop_displaying_dialogue = false
-            _dialogue_label.text = text
-            break
-        else:
-            # Add next character of dialogue
-            _dialogue_label.text += text[i]
-            await get_tree().create_timer(typing_delay).timeout
+	for i in range(text.length()):
+		# Stop the dialogue when a new dialogue is issued
+		if _stop_displaying_dialogue:
+			_is_displaying_dialogue = false
+			_stop_displaying_dialogue = false
+			_dialogue_label.text = text
+			break
+		else:
+			# Add next character of dialogue
+			_dialogue_label.text += text[i]
+			await get_tree().create_timer(typing_delay).timeout
 
-    _is_displaying_dialogue = false
-    _stop_displaying_dialogue = false
-    if not persistent:
-        _dialogue_timer.start()
+	_is_displaying_dialogue = false
+	_stop_displaying_dialogue = false
+	if not persistent:
+		_dialogue_timer.start()
 
 
 ## Clears the dialogue label.
 func _on_timeout() -> void:
-    _dialogue_label.text = ""
-    SignalBus.dialogue_finished.emit()
+	_dialogue_label.text = ""
+	SignalBus.dialogue_finished.emit()
 
 
 ## Skips the current dialogue.
 func _on_dialogue_skipped() -> void:
-    if _is_displaying_dialogue:
-        _stop_displaying_dialogue = true
-    elif not _is_persistent_dialogue:
-        SignalBus.dialogue_finished.emit()
+	if _is_displaying_dialogue:
+		_stop_displaying_dialogue = true
+	elif not _is_persistent_dialogue:
+		SignalBus.dialogue_finished.emit()
 
 
 ## Displays the specified interaction text.
 func _on_interaction_label_changed(text: String) -> void:
-    _interaction_label.text = text
+	_interaction_label.text = text
 
 
 ## Transitions to the specified scene by fade out.
 func _on_fade_out(packed_scene: PackedScene) -> void:
-    _animation_player.play("fade_out")
-    await _animation_player.animation_finished
-    get_tree().change_scene_to_packed(packed_scene)
+	_animation_player.play("fade_out")
+	await _animation_player.animation_finished
+	get_tree().change_scene_to_packed(packed_scene)

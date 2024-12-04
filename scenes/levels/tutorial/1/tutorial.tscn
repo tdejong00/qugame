@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cjpyd75nd3je5"]
 
-[ext_resource type="Script" path="res://scenes/levels/tutorial/tutorial.gd" id="1_i5e8u"]
+[ext_resource type="Script" path="res://scenes/levels/tutorial/1/tutorial.gd" id="1_i5e8u"]
 [ext_resource type="PackedScene" uid="uid://ckk03qsadcwlw" path="res://scenes/entities/player/player.tscn" id="2_f23gd"]
 [ext_resource type="PackedScene" uid="uid://bsi2sm86hkhor" path="res://scenes/objects/qubit/qubit.tscn" id="3_gy2aj"]
 [ext_resource type="PackedScene" uid="uid://5ye6f6br2bts" path="res://scenes/user_interface/user_interface.tscn" id="4_4kfsi"]
@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://o2xud88mln6v" path="res://scenes/objects/door/door.tscn" id="4_jg1ue"]
 [ext_resource type="PackedScene" uid="uid://65xnlas5jt2i" path="res://scenes/objects/quantum_gate_slot/quantum_gate_slot.tscn" id="6_brcmd"]
 [ext_resource type="PackedScene" uid="uid://e2dv2absvtoc" path="res://scenes/objects/teleporter/teleporter.tscn" id="8_m1dnc"]
-[ext_resource type="PackedScene" uid="uid://ha0hkk48tc5c" path="res://scenes/levels/sandbox/sandbox.tscn" id="9_4lfh6"]
+[ext_resource type="PackedScene" uid="uid://cjpjipc5dpyxa" path="res://scenes/levels/tutorial/2/tutorial.tscn" id="9_gr2ll"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gyik4"]
 sky_top_color = Color(0.134281, 0.16838, 0.215799, 1)
@@ -67,7 +67,7 @@ transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 0.75, 
 
 [node name="Teleporter" parent="Objects" instance=ExtResource("8_m1dnc")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 10, -0.2, 0)
-next_scene = ExtResource("9_4lfh6")
+next_scene = ExtResource("9_gr2ll")
 active = true
 
 [node name="Lamp" type="OmniLight3D" parent="Objects"]
