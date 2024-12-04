@@ -78,7 +78,7 @@ func _to_string() -> String:
 ## Creates a qubit representing the specified basis state.
 static func from_basis_state(basis_state: BasisState) -> Qubit:
     var qubit: Qubit = SCENE.instantiate()
-    qubit.initial_state = basis_state
+    qubit.set_state(basis_state)
     return qubit
 
 
@@ -139,8 +139,6 @@ func propagate() -> void:
 
     if next_slot != null:
         next_slot.propagate()
-    elif not is_gold:
-        SignalBus.circuit_changed.emit()
 
 ## Evaluates the circuit to a single qubit.
 func evaluate() -> Qubit:

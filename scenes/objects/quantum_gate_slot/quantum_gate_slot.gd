@@ -86,8 +86,6 @@ func clear() -> void:
 func propagate() -> void:
     if quantum_gate != null and qubit_out != null:
         quantum_gate.propagate(qubit_in, qubit_out)
-    else:
-        SignalBus.circuit_changed.emit()
 
 
 ## Evaluates the circuit to a single qubit.
@@ -107,3 +105,4 @@ func interact(key: String) -> void:
         var type: QuantumGate.Type = key.to_int() - 1
         if LevelRestrictions.is_gate_allowed(type):
             set_gate(type)
+    SignalBus.circuit_changed.emit()
