@@ -78,7 +78,7 @@ func _to_string() -> String:
 ## Creates a qubit representing the specified basis state.
 static func from_basis_state(basis_state: BasisState) -> Qubit:
     var qubit: Qubit = SCENE.instantiate()
-    qubit.set_state(basis_state)
+    qubit.initial_state = basis_state
     return qubit
 
 
@@ -118,14 +118,12 @@ func set_state(basis_state: BasisState) -> void:
         BasisState.MINUS_IMAGINARY:
             alpha = Vector2(1 / sqrt(2), 0)
             beta = Vector2(0, -1 / sqrt(2))
+    # FIXME: this is the reason for some weird behaviour
     propagate()
 
 ## Updates the polar angle and relative phase of the qubit
 ## and propagates the result to the next quantum gate.
 func propagate() -> void:
-    if is_gold:
-        return
-
     # Set theta angle
     var alpha_norm = sqrt(alpha.x ** 2 + alpha.y ** 2)
     _theta = 2 * acos(alpha_norm)
@@ -141,9 +139,8 @@ func propagate() -> void:
 
     if next_slot != null:
         next_slot.propagate()
-    else:
+    elif not is_gold:
         SignalBus.circuit_changed.emit()
-
 
 ## Evaluates the circuit to a single qubit.
 func evaluate() -> Qubit:
