@@ -64,10 +64,10 @@ func _ready() -> void:
     # Wait for player to match state
     LevelRestrictions.size_limit = 2
     SignalBus.restrictions_updated.emit()
-    _quantum_gate_slot.clear()
-    _quantum_gate_slot.set_gate(QuantumGate.Type.PAULI_X)
+    _quantum_gate_slot.set_gate(_quantum_gate_slot.quantum_gate.type)
     while not _input_qubit.evaluate().equals(_goal_qubit):
         await SignalBus.circuit_changed
+
     _quantum_gate_slot.next_slot.active = false
     _door.open()
 

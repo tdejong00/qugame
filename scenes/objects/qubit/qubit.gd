@@ -123,7 +123,8 @@ func set_state(basis_state: BasisState) -> void:
 ## Updates the polar angle and relative phase of the qubit
 ## and propagates the result to the next quantum gate.
 func propagate() -> void:
-    print(self)
+    if is_gold:
+        return
 
     # Set theta angle
     var alpha_norm = sqrt(alpha.x ** 2 + alpha.y ** 2)
@@ -146,7 +147,7 @@ func propagate() -> void:
 
 ## Evaluates the circuit to a single qubit.
 func evaluate() -> Qubit:
-    if next_slot != null:
+    if not is_gold and next_slot != null:
         return next_slot.evaluate()
     else:
         return self
