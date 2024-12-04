@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://cjpjipc5dpyxa"]
 
-[ext_resource type="Script" path="res://scenes/levels/tutorial/2/tutorial.gd" id="1_35w2r"]
+[ext_resource type="Script" path="res://scenes/levels/tutorial/tutorial2.gd" id="1_35w2r"]
 [ext_resource type="PackedScene" uid="uid://ckk03qsadcwlw" path="res://scenes/entities/player/player.tscn" id="2_oa6d5"]
 [ext_resource type="PackedScene" uid="uid://5ye6f6br2bts" path="res://scenes/user_interface/user_interface.tscn" id="3_bqkvd"]
 [ext_resource type="PackedScene" uid="uid://c8b5k7lep8tea" path="res://scenes/chunks/end_chunk.tscn" id="4_0gl2h"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://65xnlas5jt2i" path="res://scenes/objects/quantum_gate_slot/quantum_gate_slot.tscn" id="6_6xtdj"]
 [ext_resource type="PackedScene" uid="uid://o2xud88mln6v" path="res://scenes/objects/door/door.tscn" id="7_j83vu"]
 [ext_resource type="PackedScene" uid="uid://e2dv2absvtoc" path="res://scenes/objects/teleporter/teleporter.tscn" id="8_rsetk"]
-[ext_resource type="PackedScene" uid="uid://m8321cyvowy5" path="res://scenes/levels/tutorial/3/tutorial.tscn" id="10_8hmf6"]
+[ext_resource type="PackedScene" uid="uid://m8321cyvowy5" path="res://scenes/levels/tutorial/tutorial3.tscn" id="10_8hmf6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gyik4"]
 sky_top_color = Color(0.134281, 0.16838, 0.215799, 1)

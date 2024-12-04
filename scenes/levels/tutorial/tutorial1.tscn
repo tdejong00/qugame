@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=3 uid="uid://cjpyd75nd3je5"]
 
-[ext_resource type="Script" path="res://scenes/levels/tutorial/1/tutorial.gd" id="1_i5e8u"]
-[ext_resource type="PackedScene" uid="uid://ckk03qsadcwlw" path="res://scenes/entities/player/player.tscn" id="2_f23gd"]
-[ext_resource type="PackedScene" uid="uid://bsi2sm86hkhor" path="res://scenes/objects/qubit/qubit.tscn" id="3_gy2aj"]
-[ext_resource type="PackedScene" uid="uid://5ye6f6br2bts" path="res://scenes/user_interface/user_interface.tscn" id="4_4kfsi"]
-[ext_resource type="PackedScene" uid="uid://c8b5k7lep8tea" path="res://scenes/chunks/end_chunk.tscn" id="4_jdtq0"]
-[ext_resource type="PackedScene" uid="uid://o2xud88mln6v" path="res://scenes/objects/door/door.tscn" id="4_jg1ue"]
-[ext_resource type="PackedScene" uid="uid://65xnlas5jt2i" path="res://scenes/objects/quantum_gate_slot/quantum_gate_slot.tscn" id="6_brcmd"]
-[ext_resource type="PackedScene" uid="uid://e2dv2absvtoc" path="res://scenes/objects/teleporter/teleporter.tscn" id="8_m1dnc"]
-[ext_resource type="PackedScene" uid="uid://cjpjipc5dpyxa" path="res://scenes/levels/tutorial/2/tutorial.tscn" id="9_gr2ll"]
+[ext_resource type="Script" path="res://scenes/levels/tutorial/tutorial1.gd" id="1_5t6f0"]
+[ext_resource type="PackedScene" uid="uid://ckk03qsadcwlw" path="res://scenes/entities/player/player.tscn" id="2_tjhug"]
+[ext_resource type="PackedScene" uid="uid://5ye6f6br2bts" path="res://scenes/user_interface/user_interface.tscn" id="3_4ug4v"]
+[ext_resource type="PackedScene" uid="uid://c8b5k7lep8tea" path="res://scenes/chunks/end_chunk.tscn" id="4_q03eg"]
+[ext_resource type="PackedScene" uid="uid://bsi2sm86hkhor" path="res://scenes/objects/qubit/qubit.tscn" id="5_2xsty"]
+[ext_resource type="PackedScene" uid="uid://65xnlas5jt2i" path="res://scenes/objects/quantum_gate_slot/quantum_gate_slot.tscn" id="6_dkyrj"]
+[ext_resource type="PackedScene" uid="uid://o2xud88mln6v" path="res://scenes/objects/door/door.tscn" id="7_sraii"]
+[ext_resource type="PackedScene" uid="uid://e2dv2absvtoc" path="res://scenes/objects/teleporter/teleporter.tscn" id="8_3eoas"]
+[ext_resource type="PackedScene" uid="uid://cjpjipc5dpyxa" path="res://scenes/levels/tutorial/tutorial2.tscn" id="9_y10ko"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gyik4"]
 sky_top_color = Color(0.134281, 0.16838, 0.215799, 1)
@@ -26,21 +26,21 @@ tonemap_mode = 2
 glow_enabled = true
 
 [node name="Tutorial" type="Node3D"]
-script = ExtResource("1_i5e8u")
+script = ExtResource("1_5t6f0")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hc8un")
 
-[node name="Player" parent="." instance=ExtResource("2_f23gd")]
+[node name="Player" parent="." instance=ExtResource("2_tjhug")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 2, 4, 12)
 
-[node name="UserInterface" parent="." instance=ExtResource("4_4kfsi")]
+[node name="UserInterface" parent="." instance=ExtResource("3_4ug4v")]
 
 [node name="World" type="Node3D" parent="."]
 
-[node name="EndChunk" parent="World" instance=ExtResource("4_jdtq0")]
+[node name="EndChunk" parent="World" instance=ExtResource("4_q03eg")]
 
-[node name="EndChunk2" parent="World" instance=ExtResource("4_jdtq0")]
+[node name="EndChunk2" parent="World" instance=ExtResource("4_q03eg")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 28, 0, 16)
 
 [node name="Objects" type="Node3D" parent="."]
@@ -48,26 +48,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3.5, 8)
 
 [node name="Circuit" type="Node3D" parent="Objects"]
 
-[node name="GoalQubit" parent="Objects/Circuit" instance=ExtResource("3_gy2aj")]
+[node name="GoalQubit" parent="Objects/Circuit" instance=ExtResource("5_2xsty")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -8, 0.5, -4)
 visible = false
 is_gold = true
 
-[node name="InputQubit" parent="Objects/Circuit" node_paths=PackedStringArray("next_slot") instance=ExtResource("3_gy2aj")]
+[node name="InputQubit" parent="Objects/Circuit" node_paths=PackedStringArray("next_slot") instance=ExtResource("5_2xsty")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.5, 0)
 next_slot = NodePath("QuantumGateSlot")
 
-[node name="QuantumGateSlot" parent="Objects/Circuit/InputQubit" node_paths=PackedStringArray("qubit_in") instance=ExtResource("6_brcmd")]
+[node name="QuantumGateSlot" parent="Objects/Circuit/InputQubit" node_paths=PackedStringArray("qubit_in") instance=ExtResource("6_dkyrj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 visible = false
 qubit_in = NodePath("..")
 
-[node name="Door" parent="Objects" instance=ExtResource("4_jg1ue")]
+[node name="Door" parent="Objects" instance=ExtResource("7_sraii")]
 transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 0.75, 0.5, 0)
 
-[node name="Teleporter" parent="Objects" instance=ExtResource("8_m1dnc")]
+[node name="Teleporter" parent="Objects" instance=ExtResource("8_3eoas")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 10, -0.2, 0)
-next_scene = ExtResource("9_gr2ll")
+next_scene = ExtResource("9_y10ko")
 active = true
 
 [node name="Lamp" type="OmniLight3D" parent="Objects"]
