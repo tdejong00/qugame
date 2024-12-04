@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://65xnlas5jt2i" path="res://scenes/objects/quantum_gate_slot/quantum_gate_slot.tscn" id="6_6xtdj"]
 [ext_resource type="PackedScene" uid="uid://o2xud88mln6v" path="res://scenes/objects/door/door.tscn" id="7_j83vu"]
 [ext_resource type="PackedScene" uid="uid://e2dv2absvtoc" path="res://scenes/objects/teleporter/teleporter.tscn" id="8_rsetk"]
-[ext_resource type="PackedScene" uid="uid://ha0hkk48tc5c" path="res://scenes/levels/sandbox/sandbox.tscn" id="9_uvp4w"]
+[ext_resource type="PackedScene" uid="uid://m8321cyvowy5" path="res://scenes/levels/tutorial/3/tutorial.tscn" id="10_8hmf6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gyik4"]
 sky_top_color = Color(0.134281, 0.16838, 0.215799, 1)
@@ -72,7 +72,7 @@ transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 16, 0.
 
 [node name="Teleporter" parent="Objects" instance=ExtResource("8_rsetk")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 30, -0.2, 0)
-next_scene = ExtResource("9_uvp4w")
+next_scene = ExtResource("10_8hmf6")
 active = true
 
 [node name="Lamp" type="OmniLight3D" parent="Objects"]
