@@ -26,7 +26,6 @@ static func create_qubit(position: Vector3, is_input: bool) -> Qubit:
     qubit.position = position
     if not is_input:
         qubit.position += (2 * Vector3.RIGHT)
-    qubit.active = is_input
     return qubit
 
 

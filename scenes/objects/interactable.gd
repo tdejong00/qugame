@@ -41,6 +41,7 @@ func _set_active(value: bool) -> void:
     else:
         _area.remove_child(_collision_shape)
         remove_child(_area)
+        SignalBus.interactable_area_exited.emit(self)
 
 
 func _on_body_entered(body: Node3D) -> void:

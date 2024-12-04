@@ -124,4 +124,4 @@ func _on_interactable_area_entered(interactable: Interactable) -> void:
 func _on_interactable_area_exited(interactable: Interactable) -> void:
     if self.interactable == interactable:
         SignalBus.change_interaction_label.emit("")
-        interactable = null
+        self.interactable = null
