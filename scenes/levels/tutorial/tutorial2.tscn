@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cjpjipc5dpyxa"]
+[gd_scene load_steps=13 format=3 uid="uid://cjpjipc5dpyxa"]
 
 [ext_resource type="Script" path="res://scenes/levels/tutorial/tutorial2.gd" id="1_35w2r"]
 [ext_resource type="PackedScene" uid="uid://ckk03qsadcwlw" path="res://scenes/entities/player/player.tscn" id="2_oa6d5"]
 [ext_resource type="PackedScene" uid="uid://5ye6f6br2bts" path="res://scenes/user_interface/user_interface.tscn" id="3_bqkvd"]
 [ext_resource type="PackedScene" uid="uid://c8b5k7lep8tea" path="res://scenes/chunks/end_chunk.tscn" id="4_0gl2h"]
 [ext_resource type="PackedScene" uid="uid://bsi2sm86hkhor" path="res://scenes/objects/qubit/qubit.tscn" id="5_qxfn2"]
-[ext_resource type="PackedScene" uid="uid://brhccqxun0klb" path="res://scenes/chunks/middle_chunk.tscn" id="5_r7qx8"]
 [ext_resource type="PackedScene" uid="uid://65xnlas5jt2i" path="res://scenes/objects/quantum_gate_slot/quantum_gate_slot.tscn" id="6_6xtdj"]
 [ext_resource type="PackedScene" uid="uid://o2xud88mln6v" path="res://scenes/objects/door/door.tscn" id="7_j83vu"]
 [ext_resource type="PackedScene" uid="uid://e2dv2absvtoc" path="res://scenes/objects/teleporter/teleporter.tscn" id="8_rsetk"]
@@ -33,7 +32,7 @@ script = ExtResource("1_35w2r")
 environment = SubResource("Environment_hc8un")
 
 [node name="Player" parent="." instance=ExtResource("2_oa6d5")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 2, 4, 12)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 4, 12)
 
 [node name="UserInterface" parent="." instance=ExtResource("3_bqkvd")]
 
@@ -42,10 +41,7 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 2, 4, 12)
 [node name="EndChunk" parent="World" instance=ExtResource("4_0gl2h")]
 
 [node name="EndChunk2" parent="World" instance=ExtResource("4_0gl2h")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 48, 0, 16)
-
-[node name="MiddleChunk" parent="World" instance=ExtResource("5_r7qx8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 28, 0, 16)
 
 [node name="Objects" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3.5, 8)
@@ -53,13 +49,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3.5, 8)
 [node name="Circuit" type="Node3D" parent="Objects"]
 
 [node name="GoalQubit" parent="Objects/Circuit" instance=ExtResource("5_qxfn2")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -8, 0.5, -4)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -12, 0.5, -4)
 visible = false
 is_gold = true
 initial_state = 1
 
 [node name="InputQubit" parent="Objects/Circuit" node_paths=PackedStringArray("next_slot") instance=ExtResource("5_qxfn2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0.5, 0)
 next_slot = NodePath("QuantumGateSlot")
 
 [node name="QuantumGateSlot" parent="Objects/Circuit/InputQubit" node_paths=PackedStringArray("qubit_in") instance=ExtResource("6_6xtdj")]
@@ -68,10 +64,10 @@ visible = false
 qubit_in = NodePath("..")
 
 [node name="Door" parent="Objects" instance=ExtResource("7_j83vu")]
-transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 16, 0.5, 0)
+transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 1.5, 0.5, 0)
 
 [node name="Teleporter" parent="Objects" instance=ExtResource("8_rsetk")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 30, -0.2, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 10, -0.2, 0)
 next_scene = ExtResource("10_8hmf6")
 active = true
 

@@ -1,11 +1,8 @@
 extends Level
 
-@onready var _goal_qubit: Qubit = $Objects/Circuit/GoalQubit
-@onready var _input_qubit: Qubit = $Objects/Circuit/InputQubit
-@onready var _door: Door = $Objects/Door
-
 
 func _ready() -> void:
+    LevelRestrictions.reset()
     LevelRestrictions.allow_gate(QuantumGate.Type.IDENTITY)
     LevelRestrictions.allow_gate(QuantumGate.Type.HADAMARD)
     LevelRestrictions.allow_gate(QuantumGate.Type.PAULI_X)
@@ -15,4 +12,5 @@ func _ready() -> void:
     LevelRestrictions.size_limit = -1
     SignalBus.restrictions_updated.emit()
 
-    await display("Welcome to the sandbox! Here you can use all gates, and as many as you would want!")
+    await display("Welcome to sandbox mode!")
+    await display("In this mode you can use all gate types and as many as you would want.")

@@ -8,6 +8,7 @@ extends Level
 
 
 func _ready() -> void:
+    LevelRestrictions.reset()
     LevelRestrictions.size_limit = 1
     SignalBus.restrictions_updated.emit()
     SignalBus.hide_hotbar.emit()

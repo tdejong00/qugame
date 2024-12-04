@@ -33,7 +33,7 @@ script = ExtResource("1_5f3uj")
 environment = SubResource("Environment_hc8un")
 
 [node name="Player" parent="." instance=ExtResource("2_hhdj2")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 2, 4, 12)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 4, 4, 12)
 
 [node name="UserInterface" parent="." instance=ExtResource("3_l81do")]
 
@@ -41,14 +41,11 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 2, 4, 12)
 
 [node name="EndChunk" parent="World" instance=ExtResource("4_ng0bl")]
 
-[node name="EndChunk2" parent="World" instance=ExtResource("4_ng0bl")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 68, 0, 16)
-
 [node name="MiddleChunk" parent="World" instance=ExtResource("5_ct6du")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
 
-[node name="MiddleChunk2" parent="World" instance=ExtResource("5_ct6du")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 0)
+[node name="EndChunk2" parent="World" instance=ExtResource("4_ng0bl")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 48, 0, 16)
 
 [node name="Objects" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3.5, 8)
@@ -62,7 +59,7 @@ is_gold = true
 initial_state = 1
 
 [node name="InputQubit" parent="Objects/Circuit" node_paths=PackedStringArray("next_slot") instance=ExtResource("6_bq280")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.5, 0)
 next_slot = NodePath("QuantumGateSlot")
 
 [node name="QuantumGateSlot" parent="Objects/Circuit/InputQubit" node_paths=PackedStringArray("qubit_in") instance=ExtResource("7_u7lb0")]
@@ -71,21 +68,9 @@ visible = false
 qubit_in = NodePath("..")
 
 [node name="Door" parent="Objects" instance=ExtResource("8_8ccxk")]
-transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 40, 0.5, 0)
+transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 21.5, 0.5, 0)
 
 [node name="Teleporter" parent="Objects" instance=ExtResource("9_74vj5")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 50, -0.2, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 30, -0.2, 0)
 next_scene = ExtResource("10_mkord")
 active = true
-
-[node name="Lamp" type="OmniLight3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.5, 4)
-light_energy = 24.0
-omni_range = 24.0
-omni_attenuation = 2.0
-
-[node name="Lamp2" type="OmniLight3D" parent="Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.5, -4)
-light_energy = 24.0
-omni_range = 24.0
-omni_attenuation = 2.0

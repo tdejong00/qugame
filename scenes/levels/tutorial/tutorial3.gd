@@ -8,16 +8,17 @@ extends Level
 
 
 func _ready() -> void:
+    LevelRestrictions.reset()
     LevelRestrictions.size_limit = 1
     SignalBus.restrictions_updated.emit()
     SignalBus.hide_hotbar.emit()
     await get_tree().create_timer(LEVEL_DELAY).timeout
 
-    await display("You might be familiar with an \"universal gate set\" in classical computing.")
+    await display("You might be familiar with a \"universal gate set\" in classical computing.")
     await display("Quantum computing also has a notion of universal gate sets.")
     await display("In our case of single-qubits, with just the Hadamard and T gates we can approximate any operation.")
     await display("The T gate is also called the π/8 gate.")
-    await display("Apply it a couple of times and observe what happens", true)
+    await display("Apply the T gate a couple of times and observe what happens.", true)
 
     _input_qubit.show()
 
@@ -54,6 +55,6 @@ func _ready() -> void:
 
     _door.open()
 
-    await display("This conludes the third tutorial!")
+    await display("This conludes the third and final tutorial!")
     await display("Congratulations on completing all tutorials!")
     await display("Continue through the door that opened just now.")

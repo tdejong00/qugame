@@ -8,6 +8,7 @@ extends Level
 
 
 func _ready() -> void:
+    LevelRestrictions.reset()
     LevelRestrictions.size_limit = 1
     SignalBus.restrictions_updated.emit()
     SignalBus.hide_hotbar.emit()
@@ -53,7 +54,7 @@ func _ready() -> void:
     _quantum_gate_slot.clear()
 
     await display("For these gates to be useful, we will need another gate: the Hadamard gate.")
-    await display("Apply one right now and see what it does.", true)
+    await display("Apply the Hadamard gate and see what it does.", true)
 
     LevelRestrictions.allow_gate(QuantumGate.Type.HADAMARD)
     SignalBus.restrictions_updated.emit()
