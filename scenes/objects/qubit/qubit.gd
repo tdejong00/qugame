@@ -118,7 +118,6 @@ func set_state(basis_state: BasisState) -> void:
         BasisState.MINUS_IMAGINARY:
             alpha = Vector2(1 / sqrt(2), 0)
             beta = Vector2(0, -1 / sqrt(2))
-    # FIXME: this is the reason for some weird behaviour
     propagate()
 
 ## Updates the polar angle and relative phase of the qubit
