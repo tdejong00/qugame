@@ -4,4 +4,5 @@
 
 # Godot-specific ignores
 .import/
-export/
+export/*/*
+!export/*/.gitkeep
